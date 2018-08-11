@@ -19,6 +19,13 @@ namespace DotnetcoreReactRedux
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((builerContext, config) =>
+                {
+                    // Add application configurations.
+
+                    // Add user secrets.
+                    config.AddUserSecrets<Startup>();
+                })
                 .UseStartup<Startup>()
                 .Build();
     }
