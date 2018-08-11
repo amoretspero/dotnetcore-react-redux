@@ -25,7 +25,7 @@ namespace DotnetcoreReactRedux.Services
         /// Gets all users.
         /// </summary>
         /// <returns>All users who has been registered.</returns>
-        IEnumerable<User> GetAll();
+        List<User> GetAll();
 
         /// <summary>
         /// Get a single user by id.
@@ -116,9 +116,9 @@ namespace DotnetcoreReactRedux.Services
         /// Get all users.
         /// </summary>
         /// <returns>All user entities.</returns>
-        public IEnumerable<User> GetAll()
+        public List<User> GetAll()
         {
-            return _context.Users;
+            return _context.Users.ToList();
         }
 
         /// <summary>
