@@ -70,9 +70,9 @@ module.exports = (env) => {
         },
         plugins: [ // Plugins that webpack should use when building modules. https://webpack.js.org/configuration/plugins/
             new ExtractTextPlugin('site.css'), // Text extraction plugin. Result goes to 'site.css' file. https://github.com/webpack-contrib/extract-text-webpack-plugin
-            new webpack.DllReferencePlugin({ // TODO:
-                context: __dirname,
-                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            new webpack.DllReferencePlugin({ // Dll plugin can make bundling faster, by making precompiled bundle consisting of infrequently changing files, i.e. node_modules. By referencing, webpack finds precompiled bundles in given context. https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
+                context: __dirname, // Absolute path to use for referencing dll bundles. Used by manifest file. https://webpack.js.org/plugins/dll-plugin/
+                manifest: require('./wwwroot/dist/vendor-manifest.json') // An object containing content and name, or a string to the absolute path of the JSON manifest file to be loaded upon compilation. https://webpack.js.org/plugins/dll-plugin/
             })
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
@@ -97,11 +97,11 @@ module.exports = (env) => {
             'main-server': './ClientApp/boot-server.tsx' // The entry point for 'main-server' module.
         },
         plugins: [ // Plugins that webpack should use when building modules. https://webpack.js.org/configuration/plugins/
-            new webpack.DllReferencePlugin({ // TODO:
-                context: __dirname,
-                manifest: require('./ClientApp/dist/vendor-manifest.json'),
-                sourceType: 'commonjs2',
-                name: './vendor'
+            new webpack.DllReferencePlugin({ // Dll plugin can make bundling faster, by making precompiled bundle consisting of infrequently changing files, i.e. node_modules. By referencing, webpack finds precompiled bundles in given context. https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
+                context: __dirname, // Absolute path to use for referencing dll bundles. Used by manifest file. https://webpack.js.org/plugins/dll-plugin/
+                manifest: require('./ClientApp/dist/vendor-manifest.json'), // An object containing content and name, or a string to the absolute path of the JSON manifest file to be loaded upon compilation. https://webpack.js.org/plugins/dll-plugin/
+                sourceType: 'commonjs2', // How dll module should be exposed. This specifies what module definition type should be used. https://webpack.js.org/plugins/dll-plugin/
+                name: './vendor' // Name where the dll is exposed. https://webpack.js.org/plugins/dll-plugin/
             })
         ],
         output: { // Output settings for bundles.
