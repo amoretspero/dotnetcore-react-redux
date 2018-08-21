@@ -23,7 +23,7 @@ module.exports = (env) => {
         output: { // Output settings for bundles.
             filename: '[name].js', // Name of the output file. https://webpack.js.org/configuration/output/#output-filename
             publicPath: 'dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix.
-            // This option specifies the public URL of the output directory when serving resources like images, files and others are needed.
+            // This option specifies the public URL of the output directory when serving resources like images, files and others needed.
             // https://webpack.js.org/configuration/output/#output-publicpath
         },
         module: {
