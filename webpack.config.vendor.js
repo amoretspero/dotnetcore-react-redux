@@ -43,7 +43,8 @@ module.exports = (env) => {
                 'redux',
                 'redux-thunk',
                 'react-router-redux',
-                'jquery'
+                'jquery',
+                'office-ui-fabric-react'
             ],
         },
         output: { // Output settings for bundles.
@@ -99,33 +100,34 @@ module.exports = (env) => {
     // ------------------------------------------------------------------------
 
     // Configuration for server-side (prerendering) bundle suitable for running in Node
-    const serverBundleConfig = merge(sharedConfig, {
-        target: 'node', // Target javascript runtime.
-        resolve: { // How files should be resolved.
-            mainFields: ['main'] // Which fields in package.json file should be checked when importing packages. https://webpack.js.org/configuration/resolve/#resolve-mainfields
-        },
-        output: {
-            path: path.join(__dirname, 'ClientApp', 'dist'),
-            libraryTarget: 'commonjs2',
-        },
-        module: { // Output settings for bundles.
-            rules: [
-                {
-                    test: /\.css(\?|$)/, // CSS should be in seperate file.
-                    use: isDevBuild ? 'css-loader' : 'css-loader?minimize' // What loader to use for converting resource to a CSS exporting module.
-                }
-            ]
-        },
-        entry: { // The entry point for each module. https://webpack.js.org/concepts/entry-points/
-            vendor: ['aspnet-prerendering', 'react-dom/server'] // The entry point for 'vendor' module.
-        },
-        plugins: [ // Plugins that webpack should use when building modules. https://webpack.js.org/configuration/plugins/
-            new webpack.DllPlugin({ // Dll plugin can make bundling faster, by making precompiled bundle consisting of infrequently changing files, i.e. node_modules. By referencing, webpack finds precompiled bundles in given context. https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
-                path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'), // An absolute path to where manifest file should be in.
-                name: '[name]_[hash]' // Name of the exposed Dll function.
-            })
-        ]
-    });
+    // const serverBundleConfig = merge(sharedConfig, {
+    //     target: 'node', // Target javascript runtime.
+    //     resolve: { // How files should be resolved.
+    //         mainFields: ['main'] // Which fields in package.json file should be checked when importing packages. https://webpack.js.org/configuration/resolve/#resolve-mainfields
+    //     },
+    //     output: {
+    //         path: path.join(__dirname, 'ClientApp', 'dist'),
+    //         libraryTarget: 'commonjs2',
+    //     },
+    //     module: { // Output settings for bundles.
+    //         rules: [
+    //             {
+    //                 test: /\.css(\?|$)/, // CSS should be in seperate file.
+    //                 use: isDevBuild ? 'css-loader' : 'css-loader?minimize' // What loader to use for converting resource to a CSS exporting module.
+    //             }
+    //         ]
+    //     },
+    //     entry: { // The entry point for each module. https://webpack.js.org/concepts/entry-points/
+    //         vendor: ['aspnet-prerendering', 'react-dom/server'] // The entry point for 'vendor' module.
+    //     },
+    //     plugins: [ // Plugins that webpack should use when building modules. https://webpack.js.org/configuration/plugins/
+    //         new webpack.DllPlugin({ // Dll plugin can make bundling faster, by making precompiled bundle consisting of infrequently changing files, i.e. node_modules. By referencing, webpack finds precompiled bundles in given context. https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
+    //             path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'), // An absolute path to where manifest file should be in.
+    //             name: '[name]_[hash]' // Name of the exposed Dll function.
+    //         })
+    //     ]
+    // });
 
-    return [clientBundleConfig, serverBundleConfig];
+    // return [clientBundleConfig, serverBundleConfig];
+    return clientBundleConfig;
 };

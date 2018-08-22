@@ -27,11 +27,12 @@ module.exports = (env) => {
             // https://webpack.js.org/configuration/output/#output-publicpath
         },
         module: {
+            noParse: /ClientApp/, // Prevent webpack from parsing matching files.
             rules: [
                 // These rules specify how modules should be made. https://webpack.js.org/configuration/module/#rule
                 {
                     test: /\.tsx?$/, // This test indicates given regex should be matched to use this rule. https://webpack.js.org/configuration/module/#condition
-                    include: /ClientApp/, // This indicates files that should be included. IF directory is given, sub files, directories are selected. https://webpack.js.org/configuration/module/#condition
+                    include: /ClientApp\-Sample/, // This indicates files that should be included. IF directory is given, sub files, directories are selected. https://webpack.js.org/configuration/module/#condition
                     use: 'awesome-typescript-loader?silent=true' // What loader should be used for matched files. https://webpack.js.org/configuration/module/#rule-use
                 },
                 {
@@ -89,28 +90,29 @@ module.exports = (env) => {
     // ------------------------------------------------------------------------
 
     // Configuration for server-side (prerendering) bundle suitable for running in Node
-    const serverBundleConfig = merge(sharedConfig(), {
-        resolve: { // How files should be resolved.
-            mainFields: ['main'] // Which fields in package.json file should be checked when importing packages. https://webpack.js.org/configuration/resolve/#resolve-mainfields
-        },
-        entry: { // The entry point for each module. https://webpack.js.org/concepts/entry-points/
-            'main-server': './ClientApp/boot-server.tsx' // The entry point for 'main-server' module.
-        },
-        plugins: [ // Plugins that webpack should use when building modules. https://webpack.js.org/configuration/plugins/
-            new webpack.DllReferencePlugin({ // Dll plugin can make bundling faster, by making precompiled bundle consisting of infrequently changing files, i.e. node_modules. By referencing, webpack finds precompiled bundles in given context. https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
-                context: __dirname, // Absolute path to use for referencing dll bundles. Used by manifest file. https://webpack.js.org/plugins/dll-plugin/
-                manifest: require('./ClientApp/dist/vendor-manifest.json'), // An object containing content and name, or a string to the absolute path of the JSON manifest file to be loaded upon compilation. https://webpack.js.org/plugins/dll-plugin/
-                sourceType: 'commonjs2', // How dll module should be exposed. This specifies what module definition type should be used. https://webpack.js.org/plugins/dll-plugin/
-                name: './vendor' // Name where the dll is exposed. https://webpack.js.org/plugins/dll-plugin/
-            })
-        ],
-        output: { // Output settings for bundles.
-            libraryTarget: 'commonjs', // Which javascript target that library should be exposed as. https://webpack.js.org/configuration/output/#output-librarytarget
-            path: path.join(__dirname, './ClientApp/dist') // Path that bundles should be in.
-        },
-        target: 'node', // Target javascript runtime.
-        devtool: 'inline-source-map' // How source maps should be generated. https://webpack.js.org/configuration/devtool
-    });
+    // const serverBundleConfig = merge(sharedConfig(), {
+    //     resolve: { // How files should be resolved.
+    //         mainFields: ['main'] // Which fields in package.json file should be checked when importing packages. https://webpack.js.org/configuration/resolve/#resolve-mainfields
+    //     },
+    //     entry: { // The entry point for each module. https://webpack.js.org/concepts/entry-points/
+    //         'main-server': './ClientApp/boot-server.tsx' // The entry point for 'main-server' module.
+    //     },
+    //     plugins: [ // Plugins that webpack should use when building modules. https://webpack.js.org/configuration/plugins/
+    //         new webpack.DllReferencePlugin({ // Dll plugin can make bundling faster, by making precompiled bundle consisting of infrequently changing files, i.e. node_modules. By referencing, webpack finds precompiled bundles in given context. https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
+    //             context: __dirname, // Absolute path to use for referencing dll bundles. Used by manifest file. https://webpack.js.org/plugins/dll-plugin/
+    //             manifest: require('./ClientApp/dist/vendor-manifest.json'), // An object containing content and name, or a string to the absolute path of the JSON manifest file to be loaded upon compilation. https://webpack.js.org/plugins/dll-plugin/
+    //             sourceType: 'commonjs2', // How dll module should be exposed. This specifies what module definition type should be used. https://webpack.js.org/plugins/dll-plugin/
+    //             name: './vendor' // Name where the dll is exposed. https://webpack.js.org/plugins/dll-plugin/
+    //         })
+    //     ],
+    //     output: { // Output settings for bundles.
+    //         libraryTarget: 'commonjs', // Which javascript target that library should be exposed as. https://webpack.js.org/configuration/output/#output-librarytarget
+    //         path: path.join(__dirname, './ClientApp/dist') // Path that bundles should be in.
+    //     },
+    //     target: 'node', // Target javascript runtime.
+    //     devtool: 'inline-source-map' // How source maps should be generated. https://webpack.js.org/configuration/devtool
+    // });
 
-    return [clientBundleConfig, serverBundleConfig];
+    // return [clientBundleConfig, serverBundleConfig];
+    return clientBundleConfig;
 };
