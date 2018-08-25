@@ -8,12 +8,11 @@ import App from "./components/App";
 
 const renderApp = () => {
     ReactDOM.render(
-        // <Provider store={store}>
-        // <App />,
-        <h1>
-            Hello, world!
-        </h1>,
-        // </Provider>
+        <App>
+            <h1>
+                Hello, world!
+            </h1>
+        </App>,
         document.getElementById("react-app")
     );
 };

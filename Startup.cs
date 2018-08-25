@@ -34,7 +34,9 @@ namespace DotnetcoreReactRedux
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true,
-                    ReactHotModuleReplacement = true
+                    ReactHotModuleReplacement = true,
+                    ConfigFile = System.IO.Path.Combine(env.ContentRootPath, "ClientApp", "webpack.config.js"),
+                    ProjectPath = System.IO.Path.Combine(env.ContentRootPath, "ClientApp")
                 });
             }
             else
