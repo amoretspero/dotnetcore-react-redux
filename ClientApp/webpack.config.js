@@ -83,7 +83,7 @@ module.exports = (env) => {
         plugins: [ // Plugins that webpack should use when building modules. https://webpack.js.org/configuration/plugins/
             new MiniCssExtractPlugin({
                 filename: "site.css"
-            }), // Text extraction plugin. Result goes to 'site.css' file. https://github.com/webpack-contrib/extract-text-webpack-plugin
+            }), // CSS extraction plugin. Result goes to 'site.css' file. https://github.com/webpack-contrib/mini-css-extract-plugin
             new webpack.DllReferencePlugin({ // Dll plugin can make bundling faster, by making precompiled bundle consisting of infrequently changing files, i.e. node_modules. By referencing, webpack finds precompiled bundles in given context. https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
                 context: __dirname, // Absolute path to use for referencing dll bundles. Used by manifest file. https://webpack.js.org/plugins/dll-plugin/
                 manifest: require('../wwwroot/dist/vendor-manifest.json') // An object containing content and name, or a string to the absolute path of the JSON manifest file to be loaded upon compilation. https://webpack.js.org/plugins/dll-plugin/
