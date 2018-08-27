@@ -27,7 +27,7 @@ module.exports = (env) => {
             // https://webpack.js.org/configuration/output/#output-publicpath
         },
         module: {
-            // noParse: /ClientAppSample/, // Prevent webpack from parsing matching files.
+            noParse: /ClientAppSample/, // Prevent webpack from parsing matching files.
             rules: [
                 // These rules specify how modules should be made. https://webpack.js.org/configuration/module/#rule
                 {
