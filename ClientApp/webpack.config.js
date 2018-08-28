@@ -93,7 +93,9 @@ module.exports = (env) => {
             new webpack.SourceMapDevToolPlugin({ // Provides source map. https://webpack.js.org/plugins/source-map-dev-tool-plugin/
                 filename: '[file].map', // Remove this line if you prefer inline source maps
                 moduleFilenameTemplate: path.relative(path.join("..", clientBundleOutputDir), '[resourcePath]') // Point sourcemap entries to the original file locations on disk
-            })
+            }),
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.NoEmitOnErrorsPlugin()
         ] : [
                 // Plugins that apply in production builds only
                 new webpack.optimize.UglifyJsPlugin() // Uglifies javascript files.
