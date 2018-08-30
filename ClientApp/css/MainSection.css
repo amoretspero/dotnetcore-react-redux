@@ -1,0 +1,15 @@
+.main-section {
+    background-image: url("/images/Main_Background.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+}
+
+.title-center {
+    vertical-align: middle;
+    align-content: flex-end;
+    text-align: right;
+    width: 100%;
+}

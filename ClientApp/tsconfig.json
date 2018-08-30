@@ -9,6 +9,7 @@
     "sourceMap": true,
     "skipDefaultLibCheck": true,
     "strict": true,
+    "skipLibCheck": true, // This is for temporary solution of https://github.com/OfficeDev/office-ui-fabric-react/issues/6104
     "lib": [
       "es6",
       "dom"

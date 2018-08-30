@@ -5,9 +5,9 @@
   "requires": true,
   "dependencies": {
     "@microsoft/load-themed-styles": {
-      "version": "1.7.81",
-      "resolved": "https://registry.npmjs.org/@microsoft/load-themed-styles/-/load-themed-styles-1.7.81.tgz",
-      "integrity": "sha512-2pjBEopf5/hFn5XKrGmRg94zZbPDUIdN/4jRDqpEytYChqI0yki8xBoRP84L158BLBOH/vdWtDLSgfiAlEOUbA==",
+      "version": "1.7.82",
+      "resolved": "https://registry.npmjs.org/@microsoft/load-themed-styles/-/load-themed-styles-1.7.82.tgz",
+      "integrity": "sha512-pC4MXKsSpI1iSHRjKLlRWBWGqAsWzNKWB8SFhnPObqliJrlLkmg2++uIS0yqaMupDYYhnDsxAqC01ZCtVuuOog==",
       "dev": true
     },
     "@types/history": {
@@ -158,38 +158,38 @@
       "integrity": "sha512-9u0udJPUrDc8thztpMNvq2NrCJo0nee6QuhNRWDHhukO3I+FSkKYa/OGXHgatUptFESSLbwB0nnLAA9QZFzzwg==",
       "dev": true,
       "requires": {
-        "@uifabric/styling": "6.18.0",
+        "@uifabric/styling": "6.19.0",
         "tslib": "1.9.3"
       }
     },
     "@uifabric/merge-styles": {
-      "version": "6.7.0",
-      "resolved": "https://registry.npmjs.org/@uifabric/merge-styles/-/merge-styles-6.7.0.tgz",
-      "integrity": "sha512-0aYPw5OlUo6axDlm29LHZyFeJF5h8FQ4S2oOkP/xFn18754+nexCphV00lEZB8GUlawwbTCTicjBis4lxLm1nA==",
+      "version": "6.8.2",
+      "resolved": "https://registry.npmjs.org/@uifabric/merge-styles/-/merge-styles-6.8.2.tgz",
+      "integrity": "sha512-Hp1Yh62uiPDU1dclmTfmLB0rywsFpaNvHkR8IHumN38oCc9C/zAr9AQJs6pTKLDKzQJ1UpMTU2sIaArznu/mxw==",
       "dev": true,
       "requires": {
         "tslib": "1.9.3"
       }
     },
     "@uifabric/styling": {
-      "version": "6.18.0",
-      "resolved": "https://registry.npmjs.org/@uifabric/styling/-/styling-6.18.0.tgz",
-      "integrity": "sha512-Vk0ymK2gBm+zUJ1VNcd13E7ML80z/8CQ5VDTBZgXPl2MqH6871GtDPMwZKsRWTZ9gQr86hNpiN8PaRM0QMqqXQ==",
+      "version": "6.19.0",
+      "resolved": "https://registry.npmjs.org/@uifabric/styling/-/styling-6.19.0.tgz",
+      "integrity": "sha512-WlKFw28Tc0+5Yo65wMFaz4+WfH6+uAzHHhCDLglAUdrCPJSJBgDyChkQiW0g5Zx50pwCMTRYiRhqwAzDWy7gnw==",
       "dev": true,
       "requires": {
-        "@microsoft/load-themed-styles": "1.7.81",
-        "@uifabric/merge-styles": "6.7.0",
-        "@uifabric/utilities": "6.16.0",
+        "@microsoft/load-themed-styles": "1.7.82",
+        "@uifabric/merge-styles": "6.8.2",
+        "@uifabric/utilities": "6.17.0",
         "tslib": "1.9.3"
       }
     },
     "@uifabric/utilities": {
-      "version": "6.16.0",
-      "resolved": "https://registry.npmjs.org/@uifabric/utilities/-/utilities-6.16.0.tgz",
-      "integrity": "sha512-Y0xkpYKwNa3BukTymUFCGMkizmCCE04kyI9tbSEP148PSfMJQmaZBOyBCjwDvq1i22k3hrhAbYFRHWyAwbKOww==",
+      "version": "6.17.0",
+      "resolved": "https://registry.npmjs.org/@uifabric/utilities/-/utilities-6.17.0.tgz",
+      "integrity": "sha512-utdH18ylXrERW5nCHTC32IZvVtYSDllZOprrc/4kDw+oMfOpTzRB4rzAwin4BzEn9LXlHSxSucqmpbxiMLjKwA==",
       "dev": true,
       "requires": {
-        "@uifabric/merge-styles": "6.7.0",
+        "@uifabric/merge-styles": "6.8.2",
         "prop-types": "15.6.2",
         "tslib": "1.9.3"
       }
@@ -845,9 +845,9 @@
       "dev": true
     },
     "bootstrap": {
-      "version": "3.3.7",
-      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
-      "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E=",
+      "version": "4.1.3",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.1.3.tgz",
+      "integrity": "sha512-rDFIzgXcof0jDyjNosjv4Sno77X4KuPeFxG2XZZv1/Kc8DRVGVADdoQyyOVDwPqL36DDmtCQbrpMCqvpPLJQ0w==",
       "dev": true
     },
     "brace-expansion": {
@@ -3740,16 +3740,16 @@
       }
     },
     "office-ui-fabric-react": {
-      "version": "6.55.0",
-      "resolved": "https://registry.npmjs.org/office-ui-fabric-react/-/office-ui-fabric-react-6.55.0.tgz",
-      "integrity": "sha512-wSWbNLGNdHLJHWGioRdire4ACcj3s4o7//B/HGGR6PVfJ3yYv4W1v/LxS0B0eWOSCgfVV06lEManj7gSdPiZNg==",
+      "version": "6.58.0",
+      "resolved": "https://registry.npmjs.org/office-ui-fabric-react/-/office-ui-fabric-react-6.58.0.tgz",
+      "integrity": "sha512-3i0lzT4eOWpRN6mLNZB+JajYNN5NFtHCq8LbVuKj6EUMSE7h5pk8Gff0NwMTHzstjtkffqDklW6hhua0aabjWw==",
       "dev": true,
       "requires": {
-        "@microsoft/load-themed-styles": "1.7.81",
+        "@microsoft/load-themed-styles": "1.7.82",
         "@uifabric/icons": "6.1.0",
-        "@uifabric/merge-styles": "6.7.0",
-        "@uifabric/styling": "6.18.0",
-        "@uifabric/utilities": "6.16.0",
+        "@uifabric/merge-styles": "6.8.2",
+        "@uifabric/styling": "6.19.0",
+        "@uifabric/utilities": "6.17.0",
         "prop-types": "15.6.2",
         "tslib": "1.9.3"
       }
@@ -3950,6 +3950,12 @@
       "requires": {
         "find-up": "2.1.0"
       }
+    },
+    "popper.js": {
+      "version": "1.14.4",
+      "resolved": "https://registry.npmjs.org/popper.js/-/popper.js-1.14.4.tgz",
+      "integrity": "sha1-juwdj/AqWjoVLdQ0FKFce3n9abY=",
+      "dev": true
     },
     "posix-character-classes": {
       "version": "0.1.1",
