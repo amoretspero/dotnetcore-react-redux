@@ -5,24 +5,40 @@ class MainNavigationSection extends React.Component {
         return (
             <section className="section-full ms-Grid px-0" dir="ltr">
                 <div className="ms-Grid-row height-12-12 ms-sm12 mx-0">
-                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center justify-content-center bg-myself">
-                        <p>
-                            Tile 1
+                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center flex-wrap align-content-center justify-content-center text-center bg-myself">
+                        <h2 className="section-navigation-title ms-sm12 ">
+                            Sample title
+                        </h2>
+                        <p className="section-navigation-desc ms-sm12">
+                            Some brief description about content.
+                            This is second line of description.
                         </p>
                     </div>
-                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center justify-content-center bg-books">
-                        <p>
-                            Tile 2
+                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center flex-wrap align-content-center justify-content-center text-center bg-books">
+                        <h2 className="section-navigation-title ms-sm12 ">
+                            Sample title
+                        </h2>
+                        <p className="section-navigation-desc ms-sm12">
+                            Some brief description about content.
+                            This is second line of description.
                         </p>
                     </div>
-                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center justify-content-center bg-blog">
-                        <p>
-                            Tile 3
+                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center flex-wrap align-content-center justify-content-center bg-blog text-center">
+                        <h2 className="section-navigation-title ms-sm12 ">
+                            Sample title
+                        </h2>
+                        <p className="section-navigation-desc ms-sm12">
+                            Some brief description about content.
+                            This is second line of description.
                         </p>
                     </div>
-                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center justify-content-center bg-education">
-                        <p>
-                            Tile 4
+                    <div className="ms-Grid-col ms-sm12 ms-md6 height-6-12 d-flex align-items-center flex-wrap align-content-center justify-content-center bg-education text-center">
+                        <h2 className="section-navigation-title ms-sm12 ">
+                            Sample title
+                        </h2>
+                        <p className="section-navigation-desc ms-sm12">
+                            Some brief description about content.
+                            This is second line of description.
                         </p>
                     </div>
                 </div>

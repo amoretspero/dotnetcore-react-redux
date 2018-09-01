@@ -24,7 +24,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.4;
+    opacity: 0.25;
     z-index: -1;
     background-image: url("/images/bg-myself.jpg");
     background-size: cover;
@@ -42,7 +42,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.4;
+    opacity: 0.25;
     z-index: -1;
     background-image: url("/images/bg-books.jpg");
     background-size: cover;
@@ -60,7 +60,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.4;
+    opacity: 0.25;
     z-index: -1;
     background-image: url("/images/bg-blog.jpg");
     background-size: cover;
@@ -78,9 +78,20 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.4;
+    opacity: 0.25;
     z-index: -1;
     background-image: url("/images/bg-education.jpg");
     background-size: cover;
     background-position: center;
+}
+
+.section-navigation-title {
+    font-size: xx-large;
+    font-weight: 700;
+}
+
+.section-navigation-desc {
+    font-size: large;
+    font-weight: 500;
+    white-space: pre-wrap;
 }
