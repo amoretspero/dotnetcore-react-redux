@@ -4,7 +4,7 @@ class MainSection extends React.Component {
     render() {
         return (
             <section className="main-section text-right">
-                <div className="title-center mr-5">
+                <div className="title-middle mr-5">
                     <h1>
                         Jiung Hahm
                     </h1>

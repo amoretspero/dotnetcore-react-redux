@@ -5,7 +5,8 @@ import * as ReactDOM from "react-dom";
 import App from "./components/App";
 import { Fabric } from "office-ui-fabric-react/lib";
 
-import "./css/MainSection.css";
+import "./css/common.css";
+import "./css/main.css";
 
 // const store = createStore(rootReducer);
 

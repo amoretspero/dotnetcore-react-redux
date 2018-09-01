@@ -45,7 +45,8 @@ module.exports = (env) => {
                 'redux-thunk',
                 'react-router-redux',
                 'jquery',
-                'office-ui-fabric-react'
+                'office-ui-fabric-core/dist/css/fabric.css',
+                'office-ui-fabric-react',
             ],
         },
         output: { // Output settings for bundles.
