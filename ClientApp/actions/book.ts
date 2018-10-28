@@ -1,4 +1,4 @@
-import { VisibilityFilters } from "helpers/enums/VisibilityFilters";
+import { BookVisibilityFilters } from "helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "helpers/enums/bookStatus";
 
 export interface AddBookAction {
@@ -29,7 +29,7 @@ export interface UpdateBookAction {
 
 export interface SetVisibilityFilterAction {
     type: "SET_VISIBILITY_FILTER";
-    visibilityFilter: VisibilityFilters;
+    visibilityFilter: BookVisibilityFilters;
 }
 
 export type KnownBookAction =

@@ -1,4 +1,4 @@
-import { VisibilityFilters } from "../helpers/enums/VisibilityFilters";
+import { BookVisibilityFilters } from "../helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "helpers/enums/bookStatus";
 import { KnownBookAction } from "actions/book";
 import { combineReducers } from "redux";
@@ -11,16 +11,16 @@ export interface Book {
 }
 
 export interface BookState {
-    visibilityFilter: VisibilityFilters;
+    visibilityFilter: BookVisibilityFilters;
     books: Book[];
 }
 
 const initialState: BookState = {
-    visibilityFilter: VisibilityFilters.SHOW_ALL,
+    visibilityFilter: BookVisibilityFilters.SHOW_ALL,
     books: [],
 };
 
-export function visibilityFilterReducer(state = VisibilityFilters.SHOW_ALL, action: KnownBookAction) {
+export function visibilityFilterReducer(state = BookVisibilityFilters.SHOW_ALL, action: KnownBookAction) {
     switch (action.type) {
         case "SET_VISIBILITY_FILTER":
             return action.visibilityFilter;
