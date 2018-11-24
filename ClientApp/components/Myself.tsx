@@ -4,7 +4,7 @@ class Myself extends React.Component {
     render() {
         return (
             <section className="main-section text-center">
-                <div className="title-middle">
+                <div className="title-middle mr-5">
                     <h1>
                         About Myself
                     </h1>

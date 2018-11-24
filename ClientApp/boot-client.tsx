@@ -6,12 +6,21 @@ import { Fabric } from "office-ui-fabric-react/lib";
 
 import "./css/common.css";
 import "./css/main.css";
-import bookListReducer from "reducers/bookList";
+import bookListReducer from "./reducers/bookList";
+import { Provider } from "react-redux";
+import Routes from "./routes";
+
+/**
+ * Application-wide redux store.
+ */
+const store = createStore(bookListReducer);
 
 const renderApp = () => {
     ReactDOM.render(
         <Fabric>
-            <App />
+            <Provider store={store}>
+                <Routes />
+            </Provider>
         </Fabric>,
         document.getElementById("react-app")
     );

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Book } from "reducers/bookList";
+import { Book } from "../types/book";
 import { connect } from "react-redux";
 import { VisibleBookList } from "./containers/VisibleBookList";
 

@@ -2,24 +2,31 @@ import { BookVisibilityFilters } from "../helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "helpers/enums/bookStatus";
 import { KnownBookAction } from "actions/book";
 import { combineReducers } from "redux";
+import { Book } from "../types/book";
 
-export interface Book {
-    id: string;
-    title: string;
-    author: string;
-    status: BookStatus;
-}
-
+/**
+ * State for book section.
+ * 
+ * TODO: Must combined with other states to make single state of app.
+ */
 export interface BookState {
     visibilityFilter: BookVisibilityFilters;
     books: Book[];
 }
 
+/**
+ * Initial state.
+ */
 const initialState: BookState = {
     visibilityFilter: BookVisibilityFilters.SHOW_ALL,
     books: [],
 };
 
+/**
+ * Reducer for visibilityFilter.
+ * @param state Previous state, only containing visibilityFilter.
+ * @param action Action to perform on previous state.
+ */
 export function visibilityFilterReducer(state = BookVisibilityFilters.SHOW_ALL, action: KnownBookAction) {
     switch (action.type) {
         case "SET_VISIBILITY_FILTER":
@@ -29,6 +36,11 @@ export function visibilityFilterReducer(state = BookVisibilityFilters.SHOW_ALL, 
     }
 }
 
+/**
+ * Reducer for books.
+ * @param state Previous state, only containing books.
+ * @param action Action to perform on previous state.
+ */
 export function bookReducer(state = [] as Book[], action: KnownBookAction) {
     switch (action.type) {
         case "ADD_BOOK":
@@ -67,6 +79,11 @@ export function bookReducer(state = [] as Book[], action: KnownBookAction) {
     }
 }
 
+/**
+ * Combined reducer of visibilityFilter and book reducers.
+ * 
+ * This combined reducer is root reducer for book section.
+ */
 const bookListReducer = combineReducers<BookState, KnownBookAction>({
     visibilityFilter: visibilityFilterReducer,
     books: bookReducer,
