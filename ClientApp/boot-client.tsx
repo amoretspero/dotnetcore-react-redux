@@ -6,14 +6,14 @@ import { Fabric } from "office-ui-fabric-react/lib";
 
 import "./css/common.css";
 import "./css/main.css";
-import bookListReducer from "./reducers/bookList";
+import bookListReducer, { initialState } from "./reducers/book";
 import { Provider } from "react-redux";
 import Routes from "./routes";
 
 /**
  * Application-wide redux store.
  */
-const store = createStore(bookListReducer);
+const store = createStore(bookListReducer, initialState);
 
 const renderApp = () => {
     ReactDOM.render(

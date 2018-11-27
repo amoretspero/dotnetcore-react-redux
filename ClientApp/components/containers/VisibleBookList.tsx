@@ -1,11 +1,11 @@
-import { BookState } from "reducers/bookList";
-import { BookStatus } from "helpers/enums/bookStatus";
-import { BookVisibilityFilters } from "helpers/enums/BookVisibilityFilters";
-import { BookListProps, BookList } from "components/Book";
-import { KnownBookAction, AddBookAction, bookActionCreators } from "actions/book";
+import { BookState } from "../../reducers/book";
+import { BookStatus } from "../../helpers/enums/bookStatus";
+import { BookVisibilityFilters } from "../../helpers/enums/BookVisibilityFilters";
+import { KnownBookAction, bookActionCreators } from "../../actions/book";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { Book } from "../../types/book";
+import { BookList } from "components/BookList";
 
 /**
  * Helper function to get visible books from current state via visibility filter.
@@ -33,7 +33,7 @@ function getVisibleBooks(books: Book[], filter: BookVisibilityFilters) {
  * Maps current state to container component's props.
  * @param state State to map to props of container component.
  */
-function mapStateToProps(state: BookState): BookListProps {
+function mapStateToProps(state: BookState) {
     return {
         books: getVisibleBooks(state.books, state.visibilityFilter),
     }

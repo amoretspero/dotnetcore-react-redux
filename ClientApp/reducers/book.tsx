@@ -1,5 +1,5 @@
 import { BookVisibilityFilters } from "../helpers/enums/BookVisibilityFilters";
-import { BookStatus } from "helpers/enums/bookStatus";
+import { BookStatus } from "../helpers/enums/bookStatus";
 import { KnownBookAction } from "actions/book";
 import { combineReducers } from "redux";
 import { Book } from "../types/book";
@@ -17,9 +17,16 @@ export interface BookState {
 /**
  * Initial state.
  */
-const initialState: BookState = {
+export const initialState: BookState = {
     visibilityFilter: BookVisibilityFilters.SHOW_ALL,
-    books: [],
+    books: [
+        {
+            author: "hello",
+            id: "1",
+            status: BookStatus.PENDING,
+            title: "world",
+        }
+    ],
 };
 
 /**

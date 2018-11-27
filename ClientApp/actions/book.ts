@@ -1,5 +1,5 @@
-import { BookVisibilityFilters } from "helpers/enums/BookVisibilityFilters";
-import { BookStatus } from "helpers/enums/bookStatus";
+import { BookVisibilityFilters } from "../helpers/enums/BookVisibilityFilters";
+import { BookStatus } from "../helpers/enums/bookStatus";
 
 /**
  * ADD_BOOK action.
