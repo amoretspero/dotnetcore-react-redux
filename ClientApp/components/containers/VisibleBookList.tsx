@@ -5,7 +5,7 @@ import { KnownBookAction, bookActionCreators } from "../../actions/book";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { Book } from "../../types/book";
-import { BookList } from "components/BookList";
+import { BookList } from "../../components/BookList";
 
 /**
  * Helper function to get visible books from current state via visibility filter.

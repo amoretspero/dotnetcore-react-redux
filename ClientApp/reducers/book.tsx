@@ -21,10 +21,22 @@ export const initialState: BookState = {
     visibilityFilter: BookVisibilityFilters.SHOW_ALL,
     books: [
         {
-            author: "hello",
+            author: "정재찬",
             id: "1",
+            status: BookStatus.FINISHED,
+            title: "시를 잊은 그대에게",
+        },
+        {
+            author: "유홍준",
+            id: "2",
             status: BookStatus.PENDING,
-            title: "world",
+            title: "나의 문화유산 답사기 - 산사순례"
+        },
+        {
+            author: "로베르트 융크",
+            id: "3",
+            status: BookStatus.READING,
+            title: "천 개의 태양보다 밝은 - 우리가 몰랐던 원자과학자들의 개인적 역사"
         }
     ],
 };
