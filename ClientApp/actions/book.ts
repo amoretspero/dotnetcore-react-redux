@@ -136,9 +136,17 @@ function updateBookActionCreator(id: string, title?: string, author?: string): U
     };
 }
 
+function setVisibilityFilterActionCreator(filter: BookVisibilityFilters): SetVisibilityFilterAction {
+    return {
+        type: "SET_VISIBILITY_FILTER",
+        visibilityFilter: filter,
+    };
+}
+
 export const bookActionCreators = {
     addBookActionCreator,
     changeBookActionCreator,
     removeBookActionCreator,
     updateBookActionCreator,
+    setVisibilityFilterActionCreator,
 };

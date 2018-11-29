@@ -13,7 +13,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 50vh;
+    min-height: 480px;
     opacity: 0.25;
     z-index: -1;
     background-image: url("/images/Bookpage_Background.jpg");
@@ -22,7 +23,8 @@
 }
 
 .bookpage-main-section {
-    height: 100vh;
+    height: 50vh;
+    min-height: 480px;
     align-items: center;
     display: flex;
 }
@@ -31,7 +33,8 @@
     content: "";
     display: block;
     width: 100%;
-    height: 100%;
+    height: 50vh;
+    min-height: 480px;
     top: 0;
     left: 0;
     position: absolute;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BookListProps, Book } from "../types/book";
 import { BookListElement } from "./BookListElement";
-import { MarqueeSelection, Selection, DetailsList, SelectionMode } from "office-ui-fabric-react";
+import { MarqueeSelection, Selection, DetailsList, SelectionMode, DetailsListLayoutMode } from "office-ui-fabric-react";
 import { BookStatus } from "../helpers/enums/bookStatus";
 
 export class BookList extends React.Component<BookListProps, {}> {
@@ -30,7 +30,7 @@ export class BookList extends React.Component<BookListProps, {}> {
                             name: "TITLE",
                             fieldName: "title",
                             isResizable: true,
-                            minWidth: 400,
+                            minWidth: 300,
                         },
                         {
                             key: "column3",
@@ -38,6 +38,7 @@ export class BookList extends React.Component<BookListProps, {}> {
                             fieldName: "author",
                             isResizable: true,
                             minWidth: 200,
+                            maxWidth: 200
                         },
                         {
                             key: "column4",
@@ -61,8 +62,8 @@ export class BookList extends React.Component<BookListProps, {}> {
                             }
                         }
                     ]}
-                    selectionMode={SelectionMode.none}>
-
+                    selectionMode={SelectionMode.none}
+                >
                 </DetailsList>
             </div>
         )
