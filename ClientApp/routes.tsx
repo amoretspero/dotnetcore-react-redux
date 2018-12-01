@@ -14,7 +14,7 @@ class Routes extends React.Component {
                 <div>
                     <Route exact path="/" component={App} />
                     <Route path="/myself" component={MyselfPage} />
-                    <Route path="/book" component={BookPage} />
+                    <Route path="/books" component={BookPage} />
                 </div>
             </Router>
         )

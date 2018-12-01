@@ -17,6 +17,9 @@ class MainSection extends React.Component {
                     <p>
                         <a href="mailto:amoretspero@gmail.com">amoretspero@gmail.com</a>
                     </p>
+                    <p>
+                        Human beings, through their own consciousness, create their own values and determine a meaning to their life. - Jean Paul Sartre.
+                    </p>
                 </div>
             </section>
         )

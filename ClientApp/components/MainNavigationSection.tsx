@@ -15,7 +15,7 @@ class MainNavigationSection extends React.Component {
                             This is second line of description.
                         </p>
                         <DefaultButton
-                            href="/"
+                            href="/myself"
                             title="Go to sample page.">
                             SAMPLE PAGE
                         </DefaultButton>
@@ -29,9 +29,8 @@ class MainNavigationSection extends React.Component {
                             This is second line of description.
                         </p>
                         <DefaultButton
-                            href="/"
-                            title="Go to sample page."
-                            disabled>
+                            href="/books"
+                            title="Go to sample page.">
                             SAMPLE PAGE
                         </DefaultButton>
                     </div>
