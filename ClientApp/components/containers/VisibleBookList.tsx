@@ -1,6 +1,6 @@
 import { BookState } from "../../reducers/book";
 import { BookStatus } from "../../helpers/enums/bookStatus";
-import { BookVisibilityFilters } from "../../helpers/enums/BookVisibilityFilters";
+import { BookVisibilityFilter } from "../../helpers/enums/BookVisibilityFilters";
 import { KnownBookAction, bookActionCreators } from "../../actions/book";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -12,17 +12,17 @@ import { BookList } from "../../components/BookList";
  * @param books Current state's books.
  * @param filter Current state's filter.
  */
-function getVisibleBooks(books: Book[], filter: BookVisibilityFilters) {
+function getVisibleBooks(books: Book[], filter: BookVisibilityFilter) {
     switch (filter) {
-        case BookVisibilityFilters.SHOW_ALL:
+        case BookVisibilityFilter.SHOW_ALL:
             return books;
-        case BookVisibilityFilters.PENDING:
+        case BookVisibilityFilter.PENDING:
             return books.filter((book) => book.status === BookStatus.PENDING);
-        case BookVisibilityFilters.READING:
+        case BookVisibilityFilter.READING:
             return books.filter((book) => book.status === BookStatus.READING);
-        case BookVisibilityFilters.FINISHED:
+        case BookVisibilityFilter.FINISHED:
             return books.filter((book) => book.status === BookStatus.FINISHED);
-        case BookVisibilityFilters.WISHLIST:
+        case BookVisibilityFilter.WISHLIST:
             return books.filter((book) => book.status === BookStatus.WISHLIST);
         default:
             return [];

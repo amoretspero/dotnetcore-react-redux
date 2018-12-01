@@ -1,5 +1,5 @@
 import { BookStatus } from "../helpers/enums/bookStatus";
-import { BookVisibilityFilters } from "../helpers/enums/BookVisibilityFilters";
+import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
 import { SetVisibilityFilterAction } from "actions/book";
 
 /**
@@ -16,8 +16,39 @@ export type BookListElementProps = {
     book: Book;
 }
 
+/**
+ * BookListFilter component props type.
+ */
 export type BookListFilterProps = {
+    /**
+     * onClick event to fire when clicked.
+     */
     onClick: () => void,
+    /**
+     * Text to render inside button.
+     */
+    text: string,
+    /**
+     * Current state's filter.
+     */
+    currentFilter: BookVisibilityFilter,
+    /**
+     * Current component's filter.
+     */
+    ownFilter: BookVisibilityFilter,
+}
+
+/**
+ * BookListFilterContainer component props type.
+ */
+export type BookListFilterContainerProps = {
+    /**
+     * Filter to assign to component.
+     */
+    filter: BookVisibilityFilter,
+    /**
+     * Text to render for button.
+     */
     text: string,
 }
 

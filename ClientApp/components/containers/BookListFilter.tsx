@@ -1,20 +1,23 @@
 import * as React from "react";
-import { BookListFilterProps } from "../../types/book";
+import { BookListFilterProps, BookListFilterContainerProps } from "../../types/book";
 import { DefaultButton, BaseButton, Button } from "office-ui-fabric-react";
 import { connect } from "react-redux";
 import { bookActionCreators } from "../../actions/book";
-import { BookVisibilityFilters } from "../../helpers/enums/BookVisibilityFilters";
+import { BookVisibilityFilter } from "../../helpers/enums/BookVisibilityFilters";
 import { BookState } from "../../reducers/book";
 import { Dispatch, AnyAction } from "redux";
 
 class BookListFilter extends React.Component<BookListFilterProps, {}> {
+    private _filter: BookVisibilityFilter;
+
     constructor(props: BookListFilterProps) {
         super(props);
+        this._filter = props.ownFilter;
     }
 
     render() {
         return (
-            <DefaultButton onClick={(e) => { this.props.onClick() }} className="p-3 mx-4">
+            <DefaultButton primary={this._filter === this.props.currentFilter} onClick={(e) => { this.props.onClick() }} className="p-3 mx-4">
                 {this.props.text}
             </DefaultButton>
         )
@@ -26,9 +29,11 @@ class BookListFilter extends React.Component<BookListFilterProps, {}> {
  * @param state State to map to props of container component.
  * @param ownProps Props provided when using this component.
  */
-function bookListFilterMapStateToProps(state: BookState, ownProps: { filter: BookVisibilityFilters, text: string }) {
+function bookListFilterMapStateToProps(state: BookState, ownProps: BookListFilterContainerProps) {
     return {
         text: ownProps.text,
+        currentFilter: state.visibilityFilter,
+        ownFilter: ownProps.filter,
     };
 }
 
@@ -37,7 +42,7 @@ function bookListFilterMapStateToProps(state: BookState, ownProps: { filter: Boo
  * @param dispatch Dispatch to map to props of container component.
  * @param ownProps Props provided when using this component.
  */
-function bookListFilterMapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: { filter: BookVisibilityFilters, text: string }) {
+function bookListFilterMapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: BookListFilterContainerProps) {
     return {
         onClick: () => {
             dispatch(bookActionCreators.setVisibilityFilterActionCreator(ownProps.filter))

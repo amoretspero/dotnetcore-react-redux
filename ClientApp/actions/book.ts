@@ -1,4 +1,4 @@
-import { BookVisibilityFilters } from "../helpers/enums/BookVisibilityFilters";
+import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "../helpers/enums/bookStatus";
 
 /**
@@ -92,7 +92,7 @@ export interface SetVisibilityFilterAction {
     /**
      * Target visibility filter state.
      */
-    visibilityFilter: BookVisibilityFilters;
+    visibilityFilter: BookVisibilityFilter;
 }
 
 export type KnownBookAction =
@@ -136,7 +136,7 @@ function updateBookActionCreator(id: string, title?: string, author?: string): U
     };
 }
 
-function setVisibilityFilterActionCreator(filter: BookVisibilityFilters): SetVisibilityFilterAction {
+function setVisibilityFilterActionCreator(filter: BookVisibilityFilter): SetVisibilityFilterAction {
     return {
         type: "SET_VISIBILITY_FILTER",
         visibilityFilter: filter,

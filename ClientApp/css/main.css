@@ -30,7 +30,43 @@
 }
 
 .bookpage-main-section::after {
-    content: "";
+    content: "Photo by Alfons Morales on Unsplash";
+    display: block;
+    width: 100%;
+    height: 50vh;
+    min-height: 480px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+.myself-main-section::before {
+    position: absolute;
+    content: "Photo by Ravi Pinisetti on Unsplash";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    min-height: 480px;
+    opacity: 0.25;
+    z-index: -1;
+    background-image: url("/images/Myself_Background.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.myself-main-section {
+    height: 50vh;
+    min-height: 480px;
+    align-items: center;
+    display: flex;
+}
+
+.myself-main-section::after {
+    content: "Photo by Ravi Pinisetti on Unsplash";
     display: block;
     width: 100%;
     height: 50vh;
@@ -161,4 +197,20 @@
     font-size: large;
     font-weight: 500;
     white-space: pre-wrap;
+}
+
+.partial-border-lb::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 64px;
+    border-bottom: 2px solid #555555;
+}
+
+.multiline {
+    white-space: pre-line;
+    line-height: 1.5em;
+    font-size: medium;
 }

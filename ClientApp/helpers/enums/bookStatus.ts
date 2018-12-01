@@ -2,8 +2,8 @@
  * Status for book.
  */
 export enum BookStatus {
-    WISHLIST,
-    PENDING,
-    READING,
-    FINISHED
+    WISHLIST = "WISHLIST",
+    PENDING = "PENDING",
+    READING = "READING",
+    FINISHED = "FINISHED"
 }

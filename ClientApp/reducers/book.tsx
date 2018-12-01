@@ -1,4 +1,4 @@
-import { BookVisibilityFilters } from "../helpers/enums/BookVisibilityFilters";
+import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "../helpers/enums/bookStatus";
 import { KnownBookAction } from "actions/book";
 import { combineReducers } from "redux";
@@ -10,7 +10,7 @@ import { Book } from "../types/book";
  * TODO: Must combined with other states to make single state of app.
  */
 export interface BookState {
-    visibilityFilter: BookVisibilityFilters;
+    visibilityFilter: BookVisibilityFilter;
     books: Book[];
 }
 
@@ -18,7 +18,7 @@ export interface BookState {
  * Initial state.
  */
 export const initialState: BookState = {
-    visibilityFilter: BookVisibilityFilters.SHOW_ALL,
+    visibilityFilter: BookVisibilityFilter.SHOW_ALL,
     books: [
         {
             author: "정재찬",
@@ -118,7 +118,7 @@ export const initialState: BookState = {
  * @param state Previous state, only containing visibilityFilter.
  * @param action Action to perform on previous state.
  */
-export function visibilityFilterReducer(state = BookVisibilityFilters.SHOW_ALL, action: KnownBookAction) {
+export function visibilityFilterReducer(state = BookVisibilityFilter.SHOW_ALL, action: KnownBookAction) {
     switch (action.type) {
         case "SET_VISIBILITY_FILTER":
             return action.visibilityFilter;

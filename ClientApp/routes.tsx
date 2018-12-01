@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Route, Router } from "react-router-dom";
 import App from "./components/App";
-import Myself from "./components/Myself";
 import { createBrowserHistory } from "history";
 import { BookPage } from "./components/BookPage";
+import { MyselfPage } from "./components/MyselfPage";
 
 const browserHistory = createBrowserHistory();
 
@@ -13,7 +13,7 @@ class Routes extends React.Component {
             <Router history={browserHistory}>
                 <div>
                     <Route exact path="/" component={App} />
-                    <Route path="/myself" component={Myself} />
+                    <Route path="/myself" component={MyselfPage} />
                     <Route path="/book" component={BookPage} />
                 </div>
             </Router>
