@@ -79,9 +79,44 @@
     z-index: -1;
 }
 
+.blog-main-section::before {
+    position: absolute;
+    content: "Photo by Green Chameleon on Unsplash";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 480px;
+    opacity: 0.25;
+    z-index: -1;
+    background-image: url("/images/Blog_Background.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.blog-main-section {
+    height: 100vh;
+    min-height: 480px;
+    align-items: center;
+    display: flex;
+}
+
+.blog-main-section::after {
+    content: "Photo by Ravi Pinisetti on Unsplash";
+    display: block;
+    width: 100%;
+    height: 100vh;
+    min-height: 480px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0.4;
+    z-index: -1;
+}
+
 .title-middle {
     /* align-content: flex-end; */
-    text-align: right;
     width: 100%;
 }
 
