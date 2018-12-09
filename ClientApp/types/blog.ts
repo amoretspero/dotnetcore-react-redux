@@ -15,3 +15,13 @@ export type ArticleListElementProps = {
 export type ArticleListProps = {
     elements: ArticleListElementProps[],
 }
+
+export interface Article {
+    id: string;
+    title: string,
+    subtitle: string,
+    createdAt: Date,
+    updatedAt: Date,
+    author: string,
+    content: string,
+}

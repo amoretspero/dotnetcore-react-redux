@@ -4,7 +4,7 @@ import { DefaultButton, BaseButton, Button } from "office-ui-fabric-react";
 import { connect } from "react-redux";
 import { bookActionCreators } from "../../actions/book";
 import { BookVisibilityFilter } from "../../helpers/enums/BookVisibilityFilters";
-import { BookState } from "../../reducers/book";
+import { AppState } from "../../reducers/reducer";
 import { Dispatch, AnyAction } from "redux";
 
 class BookListFilter extends React.Component<BookListFilterProps, {}> {
@@ -29,8 +29,9 @@ class BookListFilter extends React.Component<BookListFilterProps, {}> {
  * @param state State to map to props of container component.
  * @param ownProps Props provided when using this component.
  */
-function bookListFilterMapStateToProps(state: BookState, ownProps: BookListFilterContainerProps) {
+function bookListFilterMapStateToProps(state: AppState, ownProps: BookListFilterContainerProps): BookListFilterProps {
     return {
+        onClick: () => { },
         text: ownProps.text,
         currentFilter: state.visibilityFilter,
         ownFilter: ownProps.filter,

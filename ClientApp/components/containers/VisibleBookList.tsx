@@ -1,4 +1,4 @@
-import { BookState } from "../../reducers/book";
+import { AppState } from "../../reducers/reducer";
 import { BookStatus } from "../../helpers/enums/bookStatus";
 import { BookVisibilityFilter } from "../../helpers/enums/BookVisibilityFilters";
 import { KnownBookAction, bookActionCreators } from "../../actions/book";
@@ -33,7 +33,7 @@ function getVisibleBooks(books: Book[], filter: BookVisibilityFilter) {
  * Maps current state to container component's props.
  * @param state State to map to props of container component.
  */
-function mapStateToProps(state: BookState) {
+function mapStateToProps(state: AppState) {
     return {
         books: getVisibleBooks(state.books, state.visibilityFilter),
     }
