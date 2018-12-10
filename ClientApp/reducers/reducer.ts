@@ -4,6 +4,8 @@ import { combineReducers } from "redux";
 import { Book } from "../types/book";
 import { visibilityFilterReducer, booksReducer } from "./book";
 import { Article } from "types/blog";
+import { articlesReducer } from "./blog";
+import { KnownBlogAction } from "../actions/blog";
 
 /**
  * State for book section.
@@ -16,15 +18,19 @@ export interface AppState {
     articles: Article[];
 }
 
+export type KnownAppAction =
+    KnownBookAction |
+    KnownBlogAction
+
 /**
  * Combined reducer of visibilityFilter and book reducers.
  * 
  * This combined reducer is root reducer for book section.
  */
-const reducer = combineReducers<AppState, KnownBookAction>({
+const reducer = combineReducers<AppState, KnownAppAction>({
     visibilityFilter: visibilityFilterReducer,
     books: booksReducer,
-    articles: (state = [] as Article[]) => state,
+    articles: articlesReducer,
 })
 
 export default reducer;

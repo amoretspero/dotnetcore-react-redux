@@ -95,6 +95,9 @@ export interface SetVisibilityFilterAction {
     visibilityFilter: BookVisibilityFilter;
 }
 
+/**
+ * Known book actions.
+ */
 export type KnownBookAction =
     AddBookAction |
     ChangeBookStatusAction |
@@ -102,6 +105,12 @@ export type KnownBookAction =
     UpdateBookAction |
     SetVisibilityFilterAction
 
+/**
+ * Action creator for ADD_BOOK action.
+ * @param id Id of book to add.
+ * @param title Title of book.
+ * @param author Author of book.
+ */
 function addBookActionCreator(id: string, title: string, author: string): AddBookAction {
     return {
         type: "ADD_BOOK",
@@ -112,7 +121,12 @@ function addBookActionCreator(id: string, title: string, author: string): AddBoo
     };
 }
 
-function changeBookActionCreator(id: string, newStatus: BookStatus): ChangeBookStatusAction {
+/**
+ * Action creator for CHANGE_BOOK_STATE action.
+ * @param id Id of book to change status.
+ * @param newStatus New status of book.
+ */
+function changeBookStatusActionCreator(id: string, newStatus: BookStatus): ChangeBookStatusAction {
     return {
         type: "CHANGE_BOOK_STATE",
         id,
@@ -120,6 +134,10 @@ function changeBookActionCreator(id: string, newStatus: BookStatus): ChangeBookS
     };
 }
 
+/**
+ * Action creator for REMOVE_BOOK action.
+ * @param id Id of book to remove.
+ */
 function removeBookActionCreator(id: string): RemoveBookAction {
     return {
         type: "REMOVE_BOOK",
@@ -127,6 +145,12 @@ function removeBookActionCreator(id: string): RemoveBookAction {
     };
 }
 
+/**
+ * Action creator for UPDATE_BOOK action.
+ * @param id Id of book to update information.
+ * @param title New title of book.
+ * @param author New author of book.
+ */
 function updateBookActionCreator(id: string, title?: string, author?: string): UpdateBookAction {
     return {
         type: "UPDATE_BOOK",
@@ -136,6 +160,10 @@ function updateBookActionCreator(id: string, title?: string, author?: string): U
     };
 }
 
+/**
+ * Action creator for SET_VISIBILITY_FILTER action.
+ * @param filter New filter to set.
+ */
 function setVisibilityFilterActionCreator(filter: BookVisibilityFilter): SetVisibilityFilterAction {
     return {
         type: "SET_VISIBILITY_FILTER",
@@ -143,9 +171,12 @@ function setVisibilityFilterActionCreator(filter: BookVisibilityFilter): SetVisi
     };
 }
 
+/**
+ * Collection of book action creators.
+ */
 export const bookActionCreators = {
     addBookActionCreator,
-    changeBookActionCreator,
+    changeBookStatusActionCreator,
     removeBookActionCreator,
     updateBookActionCreator,
     setVisibilityFilterActionCreator,

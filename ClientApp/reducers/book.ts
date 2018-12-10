@@ -1,13 +1,14 @@
 import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
 import { KnownBookAction } from "../actions/book";
 import { Book } from "../types/book";
+import { KnownAppAction } from "./reducer";
 
 /**
  * Reducer for visibilityFilter.
  * @param state Previous state, only containing visibilityFilter.
  * @param action Action to perform on previous state.
  */
-export function visibilityFilterReducer(state = BookVisibilityFilter.SHOW_ALL, action: KnownBookAction) {
+export function visibilityFilterReducer(state = BookVisibilityFilter.SHOW_ALL, action: KnownAppAction) {
     switch (action.type) {
         case "SET_VISIBILITY_FILTER":
             return action.visibilityFilter;
@@ -21,7 +22,7 @@ export function visibilityFilterReducer(state = BookVisibilityFilter.SHOW_ALL, a
  * @param state Previous state, only containing books.
  * @param action Action to perform on previous state.
  */
-export function booksReducer(state = [] as Book[], action: KnownBookAction) {
+export function booksReducer(state = [] as Book[], action: KnownAppAction) {
     switch (action.type) {
         case "ADD_BOOK":
             return [
