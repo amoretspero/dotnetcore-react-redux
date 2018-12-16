@@ -14,8 +14,14 @@ import { KnownBlogAction } from "../actions/blog";
  */
 export interface AppState {
     visibilityFilter: BookVisibilityFilter;
-    books: Book[];
-    articles: Article[];
+    books: {
+        isFetching: boolean,
+        items: Book[],
+    },
+    articles: {
+        isFetching: boolean,
+        items: Article[];
+    }
 }
 
 export type KnownAppAction =

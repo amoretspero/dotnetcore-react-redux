@@ -1,3 +1,5 @@
+import { Article } from "types/blog";
+
 /**
  * ADD_ARTICLE action.
  */
@@ -84,12 +86,39 @@ export interface UpdateArticleAction {
 }
 
 /**
+ * REQUEST_ARTICLES action.
+ */
+export interface RequestArticlesAction {
+    /**
+     * Type of action.
+     */
+    type: "REQUEST_ARTICLES";
+}
+
+/**
+ * RECEIVE_ARTICLES action.
+ */
+export interface ReceiveArticlesAction {
+    /**
+     * Type of action.
+     */
+    type: "RECEIVE_ARTICLES";
+
+    /**
+     * Articles received from network request.
+     */
+    items: Article[];
+}
+
+/**
  * Known blog actions.
  */
 export type KnownBlogAction =
     AddArticleAction |
     RemoveArticleAction |
-    UpdateArticleAction
+    UpdateArticleAction |
+    RequestArticlesAction |
+    ReceiveArticlesAction
 
 /**
  * Action creator for ADD_ARTICLE action.

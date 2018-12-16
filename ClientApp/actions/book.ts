@@ -1,5 +1,6 @@
 import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "../helpers/enums/bookStatus";
+import { Book } from "../types/book";
 
 /**
  * ADD_BOOK action.
@@ -82,6 +83,31 @@ export interface UpdateBookAction {
 }
 
 /**
+ * REQUEST_BOOKS action.
+ */
+export interface RequestBooksAction {
+    /**
+     * Type of action.
+     */
+    type: "REQUEST_BOOKS";
+}
+
+/**
+ * RECEIVE_BOOKS action.
+ */
+export interface ReceiveBooksAction {
+    /**
+     * Type of action.
+     */
+    type: "RECEIVE_BOOKS";
+
+    /**
+     * Books received from network request.
+     */
+    items: Book[];
+}
+
+/**
  * SET_VISIBILITY_FILTER action.
  */
 export interface SetVisibilityFilterAction {
@@ -103,6 +129,8 @@ export type KnownBookAction =
     ChangeBookStatusAction |
     RemoveBookAction |
     UpdateBookAction |
+    RequestBooksAction |
+    ReceiveBooksAction |
     SetVisibilityFilterAction
 
 /**

@@ -6,7 +6,7 @@ import { KnownAppAction } from "./reducer";
  * @param state Previous state, only containing articles.
  * @param action Action to perform on previous state.
  */
-export function articlesReducer(state = [] as Article[], action: KnownAppAction) {
+export function articlesCrudReducer(state = [] as Article[], action: KnownAppAction) {
     switch (action.type) {
         case "ADD_ARTICLE":
             return [
@@ -36,6 +36,40 @@ export function articlesReducer(state = [] as Article[], action: KnownAppAction)
             });
         case "REMOVE_ARTICLE":
             return state.filter((article) => article.id !== action.id);
+        default:
+            return state;
+    }
+}
+
+export function articlesRequestReducer(state = { isFetching: false, items: [] as Article[] }, action: KnownAppAction) {
+    switch (action.type) {
+        case "REQUEST_ARTICLES":
+            return {
+                ...state,
+                isFetching: true,
+            };
+        case "RECEIVE_ARTICLES":
+            return {
+                items: action.items,
+                isFetching: false,
+            };
+        default:
+            return state;
+    }
+}
+
+export function articlesReducer(state = { isFetching: false, items: [] as Article[] }, action: KnownAppAction) {
+    switch (action.type) {
+        case "ADD_ARTICLE":
+        case "REMOVE_ARTICLE":
+        case "UPDATE_ARTICLE":
+            return {
+                ...state,
+                items: articlesCrudReducer(state.items, action),
+            };
+        case "REQUEST_ARTICLES":
+        case "RECEIVE_ARTICLES":
+            return articlesRequestReducer(state, action);
         default:
             return state;
     }
