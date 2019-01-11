@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import App from "./components/App";
 import { Fabric } from "office-ui-fabric-react/lib";
 
@@ -10,11 +10,16 @@ import reducer from "./reducers/reducer";
 import { Provider } from "react-redux";
 import Routes from "./routes";
 import { initialState } from "./reducers/initialState";
+import ThunkMiddleware from "redux-thunk";
 
 /**
  * Application-wide redux store.
  */
-const store = createStore(reducer, initialState);
+const store = createStore(
+    reducer,
+    initialState,
+    applyMiddleware(ThunkMiddleware),
+);
 
 const renderApp = () => {
     ReactDOM.render(
