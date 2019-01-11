@@ -1,6 +1,7 @@
 import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "../helpers/enums/bookStatus";
 import { Book } from "../types/book";
+import { Dispatch } from "redux";
 
 /**
  * ADD_BOOK action.
@@ -200,6 +201,45 @@ function setVisibilityFilterActionCreator(filter: BookVisibilityFilter): SetVisi
 }
 
 /**
+ * Action creator for REQUEST_BOOKS action.
+ */
+function requestBooksActionCreator(): RequestBooksAction {
+    return {
+        type: "REQUEST_BOOKS",
+    };
+}
+
+/**
+ * Action creator for RECEIVE_BOOKS action.
+ * @param items Books received from network request.
+ */
+function receiveBooksActionCreator(items: Book[]): ReceiveBooksAction {
+    return {
+        type: "RECEIVE_BOOKS",
+        items,
+    };
+}
+
+/**
+ * Thunk action creator responsible for fetching books from server.
+ */
+function fetchBooksThunkActionCreator() {
+    return function (dispatch: Dispatch) {
+        // When current state is needed, this function can take `getState` argument as well.
+        dispatch(requestBooksActionCreator());
+        return fetch(`api/books`)
+            .then((resp) => {
+                return resp.json(); // TODO: Must resolve type difference between server Book type and client Book type.
+            }, (err) => {
+                console.error(`An error occured.`, err);
+            })
+            .then((jsonResult) => {
+                dispatch(receiveBooksActionCreator(jsonResult));
+            });
+    }
+}
+
+/**
  * Collection of book action creators.
  */
 export const bookActionCreators = {
@@ -208,4 +248,5 @@ export const bookActionCreators = {
     removeBookActionCreator,
     updateBookActionCreator,
     setVisibilityFilterActionCreator,
+    fetchBooksThunkActionCreator,
 };
