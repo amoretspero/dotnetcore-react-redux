@@ -247,7 +247,9 @@ function fetchBooksThunkActionCreator(): AppThunkAction<KnownThunkAction> {
             dispatch(requestBooksActionCreator());
             return fetch(`api/books`)
                 .then((resp) => {
-                    return resp.json(); // TODO: Must resolve type difference between server Book type and client Book type.
+                    // TODO: Must resolve type difference between server Book type and client Book type.
+                    // NOTE: .NET DateTime will be passed as string, so need to parse it.
+                    return resp.json();
                 }, (err) => {
                     console.error(`An error occured.`, err);
                 })

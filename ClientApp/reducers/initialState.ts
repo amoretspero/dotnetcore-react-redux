@@ -120,7 +120,7 @@ export const initialState: AppState = {
                 content: `## This is middle of content.`,
                 createdAt: DateTime.fromFormat("2018-12-08 18:30", "yyyy-LL-dd HH:mm").toJSDate(),
                 updatedAt: DateTime.fromFormat("2018-12-08 18:30", "yyyy-LL-dd HH:mm").toJSDate(),
-                id: "1",
+                id: "2",
                 subtitle: "This is sample subtitle.",
                 title: "This is sample title."
             },
@@ -129,7 +129,7 @@ export const initialState: AppState = {
                 content: `## This is end of content.`,
                 createdAt: DateTime.fromFormat("2018-12-08 17:30", "yyyy-LL-dd HH:mm").toJSDate(),
                 updatedAt: DateTime.fromFormat("2018-12-08 17:30", "yyyy-LL-dd HH:mm").toJSDate(),
-                id: "1",
+                id: "3",
                 subtitle: "This is sample subtitle.",
                 title: "This is sample title."
             }
