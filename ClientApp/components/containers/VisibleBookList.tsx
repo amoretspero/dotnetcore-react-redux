@@ -35,7 +35,7 @@ function getVisibleBooks(books: Book[], filter: BookVisibilityFilter) {
  */
 function mapStateToProps(state: AppState) {
     return {
-        books: getVisibleBooks(state.books, state.visibilityFilter),
+        books: getVisibleBooks(state.books.items, state.visibilityFilter),
     }
 }
 

@@ -1,4 +1,4 @@
-import { Article } from "types/blog";
+import { Article } from "../types/blog";
 
 /**
  * ADD_ARTICLE action.

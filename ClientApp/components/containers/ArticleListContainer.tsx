@@ -9,7 +9,7 @@ import { ArticleList } from "../../components/ArticleList";
  */
 function articleListMapStateToProps(state: AppState): ArticleListProps {
     return {
-        elements: state.articles.map((article) => {
+        elements: state.articles.items.map((article) => {
             return {
                 title: article.title,
                 subtitle: article.subtitle,

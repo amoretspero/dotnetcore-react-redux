@@ -1,12 +1,12 @@
 import { Article } from "../types/blog";
-import { KnownAppAction } from "./reducer";
+import { KnownAppAction, KnownSyncAction } from "./reducer";
 
 /**
  * Reducer for articles.
  * @param state Previous state, only containing articles.
  * @param action Action to perform on previous state.
  */
-export function articlesCrudReducer(state = [] as Article[], action: KnownAppAction) {
+export function articlesCrudReducer(state = [] as Article[], action: KnownSyncAction) {
     switch (action.type) {
         case "ADD_ARTICLE":
             return [

@@ -1,9 +1,9 @@
 import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
-import { KnownBookAction } from "actions/book";
+import { KnownBookAction, KnownBookThunkAction } from "actions/book";
 import { combineReducers } from "redux";
 import { Book } from "../types/book";
 import { visibilityFilterReducer, booksReducer } from "./book";
-import { Article } from "types/blog";
+import { Article } from "../types/blog";
 import { articlesReducer } from "./blog";
 import { KnownBlogAction } from "../actions/blog";
 
@@ -24,9 +24,21 @@ export interface AppState {
     }
 }
 
-export type KnownAppAction =
+export type AppThunkAction<TAction extends { type: string }> = {
+    thunk: (dispatch: (action: TAction) => void, getState: () => AppState) => void;
+    type: TAction["type"];
+}
+
+export type KnownSyncAction =
     KnownBookAction |
     KnownBlogAction
+
+export type KnownThunkAction =
+    KnownBookThunkAction
+
+export type KnownAppAction =
+    KnownSyncAction |
+    AppThunkAction<KnownThunkAction>
 
 /**
  * Combined reducer of visibilityFilter and book reducers.
