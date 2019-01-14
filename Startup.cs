@@ -23,6 +23,13 @@ namespace DotnetcoreReactRedux
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // In production, the React files will be served from this directory
+            // This code portion is not related to webpack_hmr.
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "wwwroot/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
