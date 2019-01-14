@@ -22,7 +22,10 @@ module.exports = (env) => {
         },
         output: { // Output settings for bundles.
             filename: '[name].js', // Name of the output file. https://webpack.js.org/configuration/output/#output-filename
-            publicPath: path.join(__dirname, "..", "dist") // Webpack dev middleware, if enabled, handles requests for this URL prefix.
+            publicPath: "wwwroot/dist/" // Webpack dev middleware, if enabled, handles requests for this URL. Must be relative to WebApp's URL.
+            // And this should be the root directory where webpack output resides.
+            // Appropriate setting of this value might be solution to following issues.
+            //     - https://github.com/aspnet/JavaScriptServices/issues/1204
             // This option specifies the public URL of the output directory when serving resources like images, files and others needed.
             // https://webpack.js.org/configuration/output/#output-publicpath
         },
@@ -58,6 +61,7 @@ module.exports = (env) => {
 
     // Client bundle configuration is made by merging shared configuration and client specific configurations.
     const clientBundleConfig = merge(sharedConfig(), {
+        mode: isDevBuild ? "development" : "production", // Needs to be set, unless you want to see webpack complaining fallback to "production".
         entry: { // The entry point for each module. https://webpack.js.org/concepts/entry-points/
             'main-client': './boot-client.tsx' // The entry point for 'main-client' module.
         },
@@ -72,8 +76,13 @@ module.exports = (env) => {
                                 publicPath: path.join(__dirname, "..", "dist") // This defaults to webpackOptions.output.publicPath
                             },
                         },
-                        isDevBuild ? "css-loader" : "css-lodaer?minimize"
-                    ]
+                        isDevBuild ? "css-loader" : "css-lodaer?minimize",
+                    ],
+                },
+                {
+                    test: /\.js$/,
+                    use: 'source-map-loader', // This source map loader is used to load prebuilt source maps from external codes.
+                    include: /node_modules/ // So, this loader can load prebuilt source maps of libraries from node_modules by specifying this include.
                 }
             ]
         },
@@ -91,11 +100,12 @@ module.exports = (env) => {
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
             new webpack.SourceMapDevToolPlugin({ // Provides source map. https://webpack.js.org/plugins/source-map-dev-tool-plugin/
-                filename: '[file].map', // Remove this line if you prefer inline source maps
+                filename: '[name].js.map', // Remove this line if you prefer inline source maps
                 moduleFilenameTemplate: path.relative(path.join("..", clientBundleOutputDir), '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+
             }),
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NoEmitOnErrorsPlugin()
+            // new webpack.HotModuleReplacementPlugin(), // This is not required when using from Startup.cs file.
+            // new webpack.NoEmitOnErrorsPlugin() // Also this.
         ] : [
                 // Plugins that apply in production builds only
                 new webpack.optimize.UglifyJsPlugin() // Uglifies javascript files.
