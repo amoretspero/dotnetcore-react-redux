@@ -29,16 +29,20 @@ export type AppThunkAction<TAction extends { type: string }> = {
     type: TAction["type"];
 }
 
-export type KnownSyncAction =
-    KnownBookAction |
-    KnownBlogAction
+// export type KnownSyncAction =
+//     KnownBookAction |
+//     KnownBlogAction
 
-export type KnownThunkAction =
-    KnownBookThunkAction
+// export type KnownThunkAction =
+//     KnownBookThunkAction
+
+// export type KnownAppAction =
+//     KnownSyncAction |
+//     AppThunkAction<KnownThunkAction>
 
 export type KnownAppAction =
-    KnownSyncAction |
-    AppThunkAction<KnownThunkAction>
+    KnownBookAction |
+    KnownBlogAction
 
 /**
  * Combined reducer of visibilityFilter and book reducers.

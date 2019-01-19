@@ -3,13 +3,8 @@ import { VisibleBookList } from "./containers/VisibleBookList";
 import { BookPageMainSection } from "./BookPageMainSection";
 import { BookListFilterContainer } from "./containers/BookListFilter";
 import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
-import { Dispatch, AnyAction } from "redux";
-import { bookActionCreators } from "../actions/book";
-import { KnownAppAction, AppState } from "../reducers/reducer";
-
-type BookPageProps = {
-    dispatch: Dispatch<KnownAppAction>,
-} & typeof bookActionCreators;
+import { AppState } from "../reducers/reducer";
+import { BookPageProps } from "../types/book";
 
 export class BookPage extends React.Component<BookPageProps, AppState> {
 
@@ -24,7 +19,7 @@ export class BookPage extends React.Component<BookPageProps, AppState> {
         // If `type` property is set at `AppThunkAction` and appropriate `type` is set like normal actions for thunk actions,
         // Dispatch from redux may be used.
         // this.props.fetchBooksThunkActionCreator(); // Version for not using Dispatch from redux.
-        this.props.dispatch(this.props.fetchBooksThunkActionCreator()); // Version using Dispatch from redux.
+        this.props.dispatch(this.props.fetchBooksThunkActionCreator); // Version using Dispatch from redux.
     }
 
     render() {

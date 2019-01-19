@@ -1,8 +1,8 @@
 import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
 import { BookStatus } from "../helpers/enums/bookStatus";
 import { Book } from "../types/book";
-import { AnyAction } from "redux";
-import { AppThunkAction, KnownThunkAction } from "../reducers/reducer";
+import { KnownAppAction, AppState } from "../reducers/reducer";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 /**
  * ADD_BOOK action.
@@ -240,25 +240,21 @@ function receiveBooksActionCreator(items: Book[]): ReceiveBooksAction {
 /**
  * Thunk action creator responsible for fetching books from server.
  */
-function fetchBooksThunkActionCreator(): AppThunkAction<KnownThunkAction> {
-    return {
-        thunk: function (dispatch: (action: AnyAction) => void) {
-            // When current state is needed, this function can take `getState` argument as well.
-            dispatch(requestBooksActionCreator());
-            return fetch(`api/books`)
-                .then((resp) => {
-                    // TODO: Must resolve type difference between server Book type and client Book type.
-                    // NOTE: .NET DateTime will be passed as string, so need to parse it.
-                    return resp.json();
-                }, (err) => {
-                    console.error(`An error occured.`, err);
-                })
-                .then((jsonResult) => {
-                    dispatch(receiveBooksActionCreator(jsonResult));
-                });
-        },
-        type: "@THUNK/FETCH_BOOKS", // TODO: Need some more elegant approach.
-    };
+function fetchBooksThunkActionCreator(): ThunkAction<Promise<void>, AppState, {}, KnownAppAction> {
+    return function (dispatch: ThunkDispatch<AppState, {}, KnownAppAction>) {
+        dispatch(requestBooksActionCreator());
+        return fetch(`api/books`)
+            .then((resp) => {
+                // TODO: Must resolve type difference between server Book type and client Book type.
+                // NOTE: .NET DateTime will be passed as string, so need to parse it.
+                return resp.json();
+            }, (err) => {
+                console.error(`An error occured.`, err);
+            })
+            .then((jsonResult) => {
+                dispatch(receiveBooksActionCreator(jsonResult));
+            });
+    }
 }
 
 /**
