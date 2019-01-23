@@ -57,9 +57,8 @@ class MainNavigationSection extends React.Component {
                             This is second line of description.
                         </p>
                         <DefaultButton
-                            href="/"
-                            title="Go to sample page."
-                            disabled>
+                            href="/gallery"
+                            title="Go to sample page.">
                             SAMPLE PAGE
                         </DefaultButton>
                     </div>
