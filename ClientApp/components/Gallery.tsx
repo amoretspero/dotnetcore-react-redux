@@ -14,13 +14,13 @@ export class GalleryElement extends React.Component<GalleryElementProps, Gallery
     render() {
         const style: React.CSSProperties = {
             display: "flex",
-            border: "1px solid grey",
+            // border: "1px solid grey",
             width: "100%"
         };
 
         return (
             <div style={style}>
-                <img src={this.props.url} className="p-3" style={{ width: "100%" }}></img>
+                <img src={this.props.url} className="p-2" style={{ width: "100%" }}></img>
             </div>
         )
     }
