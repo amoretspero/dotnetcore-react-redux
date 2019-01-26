@@ -6,49 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetcoreReactRedux.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     public class ArticlesController : Controller
     {
-        [Route("")]
-        public JsonResult Articles()
+        private readonly DataSeeder _seeder;
+
+        public ArticlesController()
         {
-            return Json(GetSampleArticles());
+            _seeder = new DataSeeder();
         }
 
-        private List<Article> GetSampleArticles()
+        [HttpGet]
+        [Route("[controller]")]
+        public List<Article> Articles()
         {
-            return new List<Article>{
-                new Article()
-                {
-                    Id = 1,
-                    Author = "The author",
-                    Content = "## This is start of content of first article.",
-                    CreatedAt = DateTime.Parse("2018-12-08T19:30+09:00"),
-                    UpdatedAt = DateTime.Parse("2018-12-08T19:30+09:00"),
-                    Subtitle = "This is sample subtitle of first article.",
-                    Title = "This is sample title of first article."
-                },
-                new Article()
-                {
-                    Id = 2,
-                    Author = "The author",
-                    Content = "## This is start of content of second article.",
-                    CreatedAt = DateTime.Parse("2018-12-08T18:30+09:00"),
-                    UpdatedAt = DateTime.Parse("2018-12-08T18:30+09:00"),
-                    Subtitle = "This is sample subtitle of second article.",
-                    Title = "This is sample title of second article."
-                },
-                new Article()
-                {
-                    Id = 3,
-                    Author = "The author",
-                    Content = "## This is start of content third article.",
-                    CreatedAt = DateTime.Parse("2018-12-08T17:30+09:00"),
-                    UpdatedAt = DateTime.Parse("2018-12-08T17:30+09:00"),
-                    Subtitle = "This is sample subtitle of third article.",
-                    Title = "This is sample title of third article."
-                }
-            };
+            return _seeder.GetSeedArticles();
+        }
+
+        [HttpGet]
+        [Route("article")]
+        public Article Article([FromQuery] int id)
+        {
+            return _seeder.GetSeedArticle(id);
         }
     }
 }
