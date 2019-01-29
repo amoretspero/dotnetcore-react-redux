@@ -136,22 +136,6 @@ export type KnownBookAction =
     SetVisibilityFilterAction
 
 /**
- * Thunk FETCH_BOOKS action.
- */
-export interface FetchBooksThunkAction {
-    /**
-     * Type of action.
-     */
-    type: "@THUNK/FETCH_BOOKS";
-}
-
-/**
- * Known thunk actions.
- */
-export type KnownBookThunkAction =
-    FetchBooksThunkAction
-
-/**
  * Action creator for ADD_BOOK action.
  * @param id Id of book to add.
  * @param title Title of book.

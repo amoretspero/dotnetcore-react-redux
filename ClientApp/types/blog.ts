@@ -17,7 +17,7 @@ export type ArticleListProps = {
 }
 
 export interface Article {
-    id: string;
+    id: number;
     title: string,
     subtitle: string,
     createdAt: Date,

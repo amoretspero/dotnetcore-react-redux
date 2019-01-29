@@ -6,6 +6,7 @@ import { MyselfPage } from "./components/MyselfPage";
 import { BlogPage } from "./components/BlogPage";
 import { BookPageContainer } from "./components/containers/BookPageContainer";
 import { GalleryPage } from "./components/GalleryPage";
+import { ArticlePageContainer } from "./components/containers/ArticlePageContainer";
 
 const browserHistory = createBrowserHistory();
 
@@ -17,7 +18,8 @@ class Routes extends React.Component {
                     <Route exact path="/" component={App} />
                     <Route path="/myself" component={MyselfPage} />
                     <Route path="/books" component={BookPageContainer} />
-                    <Route path="/blog" component={BlogPage} />
+                    <Route exact path="/blog" component={BlogPage} />
+                    <Route path="/blog/article/:id" component={ArticlePageContainer} />
                     <Route path="/gallery" component={GalleryPage} />
                 </div>
             </Router>

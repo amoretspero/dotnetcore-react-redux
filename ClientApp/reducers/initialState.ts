@@ -104,6 +104,7 @@ export const initialState: AppState = {
         ],
     },
     articles: {
+        fetchError: undefined,
         isFetching: false,
         items: [
             {
@@ -111,7 +112,7 @@ export const initialState: AppState = {
                 content: `## This is start of content.`,
                 createdAt: DateTime.fromFormat("2018-12-08 19:30", "yyyy-LL-dd HH:mm").toJSDate(),
                 updatedAt: DateTime.fromFormat("2018-12-08 19:30", "yyyy-LL-dd HH:mm").toJSDate(),
-                id: "1",
+                id: 1,
                 subtitle: "This is sample subtitle.",
                 title: "This is sample title."
             },
@@ -120,7 +121,7 @@ export const initialState: AppState = {
                 content: `## This is middle of content.`,
                 createdAt: DateTime.fromFormat("2018-12-08 18:30", "yyyy-LL-dd HH:mm").toJSDate(),
                 updatedAt: DateTime.fromFormat("2018-12-08 18:30", "yyyy-LL-dd HH:mm").toJSDate(),
-                id: "2",
+                id: 2,
                 subtitle: "This is sample subtitle.",
                 title: "This is sample title."
             },
@@ -129,10 +130,11 @@ export const initialState: AppState = {
                 content: `## This is end of content.`,
                 createdAt: DateTime.fromFormat("2018-12-08 17:30", "yyyy-LL-dd HH:mm").toJSDate(),
                 updatedAt: DateTime.fromFormat("2018-12-08 17:30", "yyyy-LL-dd HH:mm").toJSDate(),
-                id: "3",
+                id: 3,
                 subtitle: "This is sample subtitle.",
                 title: "This is sample title."
             }
         ],
+        selectedArticleId: undefined,
     }
 };

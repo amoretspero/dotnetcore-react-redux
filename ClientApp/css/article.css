@@ -1,0 +1,15 @@
+/* article.css */
+/* This file contains CSS definitions for `Article` related elements. */
+
+.article-element {
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
+}
+
+.article-title {
+    font-size: xx-large;
+    font-weight: 900;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+}

@@ -1,5 +1,5 @@
 import { BookVisibilityFilter } from "../helpers/enums/BookVisibilityFilters";
-import { KnownBookAction, KnownBookThunkAction } from "actions/book";
+import { KnownBookAction } from "actions/book";
 import { combineReducers } from "redux";
 import { Book } from "../types/book";
 import { visibilityFilterReducer, booksReducer } from "./book";
@@ -8,9 +8,7 @@ import { articlesReducer } from "./blog";
 import { KnownBlogAction } from "../actions/blog";
 
 /**
- * State for book section.
- * 
- * TODO: Must combined with other states to make single state of app.
+ * State for application.
  */
 export interface AppState {
     visibilityFilter: BookVisibilityFilter;
@@ -19,27 +17,24 @@ export interface AppState {
         items: Book[],
     },
     articles: {
+        fetchError: Error | undefined,
         isFetching: boolean,
-        items: Article[];
+        items: Article[],
+        selectedArticleId: number | undefined,
     }
 }
 
+/**
+ * Used when `ThunkAction` type was not provided.
+ */
 export type AppThunkAction<TAction extends { type: string }> = {
     thunk: (dispatch: (action: TAction) => void, getState: () => AppState) => void;
     type: TAction["type"];
 }
 
-// export type KnownSyncAction =
-//     KnownBookAction |
-//     KnownBlogAction
-
-// export type KnownThunkAction =
-//     KnownBookThunkAction
-
-// export type KnownAppAction =
-//     KnownSyncAction |
-//     AppThunkAction<KnownThunkAction>
-
+/**
+ * Known actions for this application.
+ */
 export type KnownAppAction =
     KnownBookAction |
     KnownBlogAction
