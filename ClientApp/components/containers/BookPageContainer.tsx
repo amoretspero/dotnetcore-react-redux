@@ -14,7 +14,7 @@ function bookPageMapDispatchToProps(dispatch: ThunkDispatch<AppState, {}, KnownA
         onConstruction: () => {
             dispatch(bookActionCreators.fetchBooksThunkActionCreator);
         },
-        dispatch: (action: ThunkAction<Promise<void>, AppState, {}, KnownAppAction>) => { },
+        dispatch,
         ...bookActionCreators,
     }
 }

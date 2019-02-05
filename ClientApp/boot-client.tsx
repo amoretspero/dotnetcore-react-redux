@@ -10,15 +10,14 @@ import reducer from "./reducers/reducer";
 import { Provider } from "react-redux";
 import Routes from "./routes";
 import { initialState } from "./reducers/initialState";
-import ThunkMiddleware from "redux-thunk";
+import thunk from "redux-thunk";
 
 /**
  * Application-wide redux store.
  */
 const store = createStore(
     reducer,
-    initialState,
-    applyMiddleware(ThunkMiddleware),
+    applyMiddleware(thunk),
 );
 
 const renderApp = () => {

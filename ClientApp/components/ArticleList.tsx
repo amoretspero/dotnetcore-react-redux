@@ -7,6 +7,10 @@ export class ArticleList extends React.Component<ArticleListProps, {}> {
         super(props);
     }
 
+    componentDidMount() {
+        this.props.dispatch(this.props.fetchArticlesThunkActionCreator());
+    }
+
     render() {
         return (
             <div className="ms-Grid-row px-5 px-2 m-2">

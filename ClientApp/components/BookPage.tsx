@@ -19,7 +19,7 @@ export class BookPage extends React.Component<BookPageProps, AppState> {
         // If `type` property is set at `AppThunkAction` and appropriate `type` is set like normal actions for thunk actions,
         // Dispatch from redux may be used.
         // this.props.fetchBooksThunkActionCreator(); // Version for not using Dispatch from redux.
-        this.props.dispatch(this.props.fetchBooksThunkActionCreator); // Version using Dispatch from redux.
+        this.props.dispatch(this.props.fetchBooksThunkActionCreator()); // Version using Dispatch from redux.
     }
 
     render() {

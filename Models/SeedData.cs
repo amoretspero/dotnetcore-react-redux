@@ -10,7 +10,10 @@ namespace DotnetcoreReactRedux.Models
             {
                 Id = 1,
                 Author = "The author",
-                Content = "## This is start of content of first article.",
+                Content = @"## ReLU - Rectified Linear Unit  
+In the context of [artificial neural networks](https://en.wikipedia.org/wiki/Artificial_neural_network), the rectifier is an activation function defined as the positive part of its argument: $f \left( x \right) = x^+ = max \left(0, x\right) $, where $x$ is the input to a neuron. This is also known as a [ramp function](https://en.wikipedia.org/wiki/Ramp_function) and is analogous to [half-wave rectification](https://en.wikipedia.org/wiki/Half-wave_rectification) in electrical engineering. This [activation function](https://en.wikipedia.org/wiki/Activation_function) was first introduced to a dynamical network by Hahnloser et al. in 2000 with strong [biological](https://en.wikipedia.org/wiki/Biological) motivations and mathematical justifications. It has been demonstrated for the first time in 2011 to enable better training of deeper networks, compared to the widely-used activation functions prior to 2011, e.g., the [logistic sigmoid](https://en.wikipedia.org/wiki/Logistic_function) (which is inspired by [probability theory](https://en.wikipedia.org/wiki/Probability_theory); see [logistic regression](https://en.wikipedia.org/wiki/Logistic_regression)) and its more practical counterpart, the [hyperbolic tangent](https://en.wikipedia.org/wiki/Hyperbolic_tangent). The rectifier is, as of 2018, the most popular activation function for [deep neural networks](https://en.wikipedia.org/wiki/Deep_learning).  
+A unit employing the rectifier is also called a **rectified linear unit** (**ReLU**).  
+Rectified linear units find applications in [computer vision](https://en.wikipedia.org/wiki/Computer_vision) and [speech recognition](https://en.wikipedia.org/wiki/Speech_recognition) using [deep neural nets](https://en.wikipedia.org/wiki/Deep_learning).  ",
                 CreatedAt = DateTime.Parse("2018-12-08T19:30+09:00"),
                 UpdatedAt = DateTime.Parse("2018-12-08T19:30+09:00"),
                 Subtitle = "This is sample subtitle of first article.",

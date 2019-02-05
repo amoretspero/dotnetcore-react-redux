@@ -36,7 +36,7 @@ function articlePageMapStateToProps(state: AppState, ownProps: ArticlePageContai
  */
 function articlePageMapDispatchToProps(dispatch: ThunkDispatch<AppState, {}, KnownAppAction>, ownProps: ArticlePageContainerProps): ArticlePageDispatchProps {
     return {
-        dispatch: (action: ThunkAction<Promise<void>, AppState, {}, KnownAppAction>) => { },
+        dispatch,
     };
 }
 

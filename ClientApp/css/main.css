@@ -285,3 +285,24 @@
     line-height: 1.5em;
     font-size: medium;
 }
+
+.vertical-separator {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    line-height: 1rem;
+    border: 1px solid grey;
+}
+
+.horizontal-separator {
+    width: 100%;
+    margin: 3rem 0rem;
+    padding: 2rem 0rem;
+}
+.horizontal-separator::after {
+    content: "";
+    width: 64px;
+    min-width: 20%;
+    border: 1px solid grey;
+    margin: 0 auto;
+    display: block;
+}

@@ -1,6 +1,7 @@
 import { Article } from "../types/blog";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AppState, KnownAppAction } from "../reducers/reducer";
+import { DateTime } from "luxon";
 
 /**
  * ADD_ARTICLE action.
@@ -333,6 +334,17 @@ function requestArticlesFailureActionCreator(errorMessage: string): RequestArtic
     };
 }
 
+function articleConverter(article: any) {
+    if (!article) {
+        throw new Error(`Cannot convert undefined or null article.`);
+    }
+    return {
+        ...article,
+        createdAt: DateTime.fromISO(article.createdAt).toJSDate(),
+        updatedAt: DateTime.fromISO(article.updatedAt).toJSDate(),
+    };
+}
+
 /**
  * Thunk action creator responsible for fetching single article from server.
  * @param id Id of article to request information.
@@ -345,7 +357,7 @@ function fetchArticleThunkActionCreator(id: number): ThunkAction<Promise<void>, 
         dispatch(requestArticleActionCreator(id));
         return fetch(`api/article?id=${id}`)
             .then((resp) => {
-                return resp.json();
+                return resp.json().then((val) => articleConverter(val));
             }, (err) => {
                 console.error(`An error occured.`, err);
                 dispatch(requestArticleFailureActionCreator(id, err));
@@ -364,7 +376,7 @@ function fetchArticlesThunkActionCreator(): ThunkAction<Promise<void>, AppState,
         dispatch(requestArticlesActionCreator());
         return fetch(`api/articles`)
             .then((resp) => {
-                return resp.json()
+                return resp.json().then((val) => val.map((article: any) => articleConverter(article)))
             }, (err) => {
                 console.error(`An error occured.`, err);
                 dispatch(requestArticlesFailureActionCreator(err));
@@ -378,7 +390,7 @@ function fetchArticlesThunkActionCreator(): ThunkAction<Promise<void>, AppState,
 /**
  * Collection of blog action creators.
  */
-export const articleActionCreators = {
+export const blogActionCreators = {
     addArticleActionCreator,
     removeArticleActionCreator,
     updateArticleActionCreator,
