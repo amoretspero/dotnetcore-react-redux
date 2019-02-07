@@ -4,6 +4,8 @@ import { ShowdownProps } from "../types/showdown";
 import { sanitize } from "dompurify";
 import { showdownKatex } from "../helpers/showdownKatex";
 
+import "../css/showdown.css"
+
 export class Showdown extends React.Component<ShowdownProps, {}> {
     private _converter: Converter;
     constructor(props: ShowdownProps) {
@@ -14,7 +16,7 @@ export class Showdown extends React.Component<ShowdownProps, {}> {
 
     render() {
         return (
-            <div
+            <div className="showdown-content"
                 dangerouslySetInnerHTML={{
                     __html: sanitize(this._converter.makeHtml(this.props.markdown))
                 }}></div>

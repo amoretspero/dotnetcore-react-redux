@@ -1,0 +1,6 @@
+/* showdown.css */
+/* This file contains CSS definitions for `Showdown` related elements. */
+
+.showdown-content p {
+    font-size: medium;
+}
