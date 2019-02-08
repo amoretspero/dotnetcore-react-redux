@@ -355,7 +355,7 @@ function fetchArticleThunkActionCreator(id: number): ThunkAction<Promise<void>, 
             return Promise.resolve();
         }
         dispatch(requestArticleActionCreator(id));
-        return fetch(`api/article?id=${id}`)
+        return fetch(`/api/article?id=${id}`)
             .then((resp) => {
                 return resp.json().then((val) => articleConverter(val));
             }, (err) => {
@@ -374,7 +374,7 @@ function fetchArticleThunkActionCreator(id: number): ThunkAction<Promise<void>, 
 function fetchArticlesThunkActionCreator(): ThunkAction<Promise<void>, AppState, {}, KnownAppAction> {
     return function (dispatch: ThunkDispatch<AppState, {}, KnownAppAction>) {
         dispatch(requestArticlesActionCreator());
-        return fetch(`api/articles`)
+        return fetch(`/api/articles`)
             .then((resp) => {
                 return resp.json().then((val) => val.map((article: any) => articleConverter(article)))
             }, (err) => {

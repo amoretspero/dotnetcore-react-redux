@@ -22,12 +22,13 @@ module.exports = (env) => {
         },
         output: { // Output settings for bundles.
             filename: '[name].js', // Name of the output file. https://webpack.js.org/configuration/output/#output-filename
-            publicPath: "wwwroot/dist/" // Webpack dev middleware, if enabled, handles requests for this URL. Must be relative to WebApp's URL.
+            publicPath: "/wwwroot/dist/" // Webpack dev middleware, if enabled, handles requests for this URL. Must be relative to WebApp's URL.
             // And this should be the root directory where webpack output resides.
             // Appropriate setting of this value might be solution to following issues.
             //     - https://github.com/aspnet/JavaScriptServices/issues/1204
             // This option specifies the public URL of the output directory when serving resources like images, files and others needed.
             // https://webpack.js.org/configuration/output/#output-publicpath
+            // Absolute to WebApp's URL is used since base path has been removed for enabling id-related anchor tag link.
         },
         module: {
             noParse: /ClientAppSample/, // Prevent webpack from parsing matching files.

@@ -227,7 +227,7 @@ function receiveBooksActionCreator(items: Book[]): ReceiveBooksAction {
 function fetchBooksThunkActionCreator(): ThunkAction<Promise<void>, AppState, {}, KnownAppAction> {
     return function (dispatch: ThunkDispatch<AppState, {}, KnownAppAction>) {
         dispatch(requestBooksActionCreator());
-        return fetch(`api/books`)
+        return fetch(`/api/books`)
             .then((resp) => {
                 // TODO: Must resolve type difference between server Book type and client Book type.
                 // NOTE: .NET DateTime will be passed as string, so need to parse it.
