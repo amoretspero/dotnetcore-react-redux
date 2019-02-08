@@ -11,6 +11,7 @@ export class Showdown extends React.Component<ShowdownProps, {}> {
     constructor(props: ShowdownProps) {
         super(props);
         this._converter = new Converter();
+        this._converter.setFlavor("github");
         this._converter.addExtension(showdownKatex({}, []), "showdown-katex");
     }
 
