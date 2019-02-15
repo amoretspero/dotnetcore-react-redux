@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using DotnetcoreReactRedux.Models;
 using Microsoft.Extensions.Configuration;
+using Amazon.DynamoDBv2;
+using System.Threading.Tasks;
+using Amazon.DynamoDBv2.Model;
 
 namespace DotnetcoreReactRedux.Services
 {
@@ -19,20 +22,20 @@ namespace DotnetcoreReactRedux.Services
         /// <param name="username">Username of a user who trys to authenticate.</param>
         /// <param name="passwordHash">Password of a user who trys to authenticate.</param>
         /// <returns>When successful, User entity will be returned. In case of failure, null will be returned.</returns>
-        User Authenticate(string username, string password);
+        Task<User> Authenticate(string username, string password);
 
         /// <summary>
         /// Gets all users.
         /// </summary>
         /// <returns>All users who has been registered.</returns>
-        List<User> GetAll();
+        Task<List<User>> GetAll();
 
         /// <summary>
         /// Get a single user by id.
         /// </summary>
         /// <param name="id">Id of the user to get.</param>
         /// <returns>When successful, target user entity will be returned. In case of failure, null will be returned.</returns>
-        User GetById(int id);
+        Task<User> GetById(int id);
 
         /// <summary>
         /// Creates a user entity with given information.
@@ -40,7 +43,7 @@ namespace DotnetcoreReactRedux.Services
         /// <param name="user">User information to use.</param>
         /// <param name="password">Password of the user.</param>
         /// <returns>When successful, newly created user entity will be returned. Otherwise exception will be thrown.</returns>
-        User Create(User user, string password);
+        Task<User> Create(User user, string password);
 
         /// <summary>
         /// Updates user's information. Possibly including password.
@@ -48,7 +51,7 @@ namespace DotnetcoreReactRedux.Services
         /// <param name="user">Target user to update information of.</param>
         /// <param name="password">Password to update. Only required when password should be updated.</param>
         /// <returns>When successful, newly updated information will be returned. Otherwise exception will be thrown.</returns>
-        User Update(User user, string password = null);
+        Task<User> Update(User user, string password = null);
 
         /// <summary>
         /// Deletes a user by id.
@@ -85,7 +88,7 @@ namespace DotnetcoreReactRedux.Services
         /// <param name="username">Username to be used for authentication.</param>
         /// <param name="password">Password to be used for authentication.</param>
         /// <returns>User entity when successful, null otherwise.</returns>
-        public User Authenticate(string username, string password)
+        public Task<User> Authenticate(string username, string password)
         {
             // When username or password is null or whitespace only, that is not a valid value.
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
@@ -109,16 +112,16 @@ namespace DotnetcoreReactRedux.Services
             }
 
             // Authentication successful.
-            return user;
+            return Task.FromResult(user);
         }
 
         /// <summary>
         /// Get all users.
         /// </summary>
         /// <returns>All user entities.</returns>
-        public List<User> GetAll()
+        public Task<List<User>> GetAll()
         {
-            return _context.Users.ToList();
+            return Task.FromResult(_context.Users.ToList());
         }
 
         /// <summary>
@@ -126,9 +129,9 @@ namespace DotnetcoreReactRedux.Services
         /// </summary>
         /// <param name="id">Id of the user to get.</param>
         /// <returns>If a user is found, will return that user entity. null otherwise.</returns>
-        public User GetById(int id)
+        public Task<User> GetById(int id)
         {
-            return _context.Users.Find(id);
+            return Task.FromResult(_context.Users.Find(id));
         }
 
         /// <summary>
@@ -137,7 +140,7 @@ namespace DotnetcoreReactRedux.Services
         /// <param name="user">Entity holding user information, without password.</param>
         /// <param name="password">Password of a user.</param>
         /// <returns>Created user entity on success, null otherwise.</returns>
-        public User Create(User user, string password)
+        public Task<User> Create(User user, string password)
         {
             // Password validation.
             if (string.IsNullOrWhiteSpace(password))
@@ -158,7 +161,7 @@ namespace DotnetcoreReactRedux.Services
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return user;
+            return Task.FromResult(user);
         }
 
         /// <summary>
@@ -166,7 +169,7 @@ namespace DotnetcoreReactRedux.Services
         /// </summary>
         /// <param name="userParam">Information to be updated. Must have all information including non-changed ones.</param>
         /// <param name="password">To change password, set this parameter as non-null, non-whitespace only value.</param>
-        public User Update(User userParam, string password = null)
+        public Task<User> Update(User userParam, string password = null)
         {
             User user = _context.Users.Find(userParam.Id);
 
@@ -202,7 +205,7 @@ namespace DotnetcoreReactRedux.Services
             _context.Users.Update(user);
             _context.SaveChanges();
 
-            return user;
+            return Task.FromResult(user);
         }
 
         /// <summary>
@@ -286,4 +289,351 @@ namespace DotnetcoreReactRedux.Services
         }
 
     }
+
+    /// <summary>
+    /// User service class for this application, using NoSQL DynamoDB as backend.
+    /// </summary>
+    public class DynamoDBUserService : IUserService
+    {
+        /// <summary>
+        /// Application configuration to be used by this UserService.
+        /// </summary>
+        private static IConfiguration _config;
+
+        /// <summary>
+        /// DynamoDB client.
+        /// </summary>
+        private static IAmazonDynamoDB _dynamoDBClient;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="config">Application configuration to use.</param>
+        public DynamoDBUserService(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        /// <summary>
+        /// Try to authenticate a user with given username and password.
+        /// </summary>
+        /// <param name="username">Username to be used for authentication.</param>
+        /// <param name="password">Password to be used for authentication.</param>
+        /// <returns>User entity when successful, null otherwise.</returns>
+        public async Task<User> Authenticate(string username, string password)
+        {
+            // When username or password is null or whitespace only, that is not a valid value.
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                return null;
+            }
+
+            // Get DynamoDB result.
+            QueryResponse dbResult = await _dynamoDBClient.QueryAsync(new QueryRequest()
+            {
+                TableName = "dotnetcore-react-redux-users",
+                KeyConditionExpression = "username = :username",
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+                {
+                    [":username"] = { S = username }
+                }
+            });
+
+            // If no user found, return null.
+            if (dbResult.Items.Count != 1)
+            {
+                return null;
+            }
+
+            // Create User instance from DB result.
+            User user = this.ConvertDynamoDBItemToUser(dbResult.Items[0]);
+
+            // Check if password is correct.
+            if (!VerifyPasswordHash(password, user.PasswordHash))
+            {
+                return null;
+            }
+
+            // Authentication successful.
+            return user;
+        }
+
+        /// <summary>
+        /// Get all users.
+        /// </summary>
+        /// <returns>All user entities.</returns>
+        public async Task<List<User>> GetAll()
+        {
+            // Get DynamoDB result.
+            Amazon.DynamoDBv2.Model.ScanResponse dbResult = await _dynamoDBClient.ScanAsync(
+                new Amazon.DynamoDBv2.Model.ScanRequest()
+                {
+                    TableName = "dotnetcore-react-redux-users",
+                }
+            );
+
+            return dbResult.Items.Select((item, idx) => this.ConvertDynamoDBItemToUser(item)).ToList();
+        }
+
+        /// <summary>
+        /// Get a single user entity with given id.
+        /// </summary>
+        /// <param name="id">Id of the user to get.</param>
+        /// <returns>If a user is found, will return that user entity. null otherwise.</returns>
+        public async Task<User> GetById(int id)
+        {
+            // Get DynamoDB result.
+            GetItemResponse dbResult = await _dynamoDBClient.GetItemAsync(new GetItemRequest()
+            {
+                TableName = "dotnetcore-react-redux-users",
+                Key = new Dictionary<string, AttributeValue>()
+                {
+                    ["id"] = { N = id.ToString() }
+                }
+            });
+
+            if (dbResult.Item == null)
+            {
+                return null;
+            }
+
+            return this.ConvertDynamoDBItemToUser(dbResult.Item);
+        }
+
+        /// <summary>
+        /// Creates a user with given information.
+        /// </summary>
+        /// <param name="user">Entity holding user information, without password.</param>
+        /// <param name="password">Password of a user.</param>
+        /// <returns>Created user entity on success, null otherwise.</returns>
+        public async Task<User> Create(User user, string password)
+        {
+            // Password validation.
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ApplicationException("Password is required.");
+            }
+
+            // Check if username is already taken.
+            QueryResponse dbResult = await _dynamoDBClient.QueryAsync(new QueryRequest()
+            {
+                TableName = "dotnetcore-react-redux-users",
+                KeyConditionExpression = "username = :username",
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+                {
+                    [":username"] = new AttributeValue()
+                    {
+                        S = user.Username
+                    }
+                }
+            });
+            if (dbResult.Items.Count > 0)
+            {
+                throw new ApplicationException("Username '" + user.Username + "' is already taken.");
+            }
+
+            byte[] passwordHash;
+            CreatePasswordHash(password, out passwordHash);
+
+            user.PasswordHash = passwordHash;
+
+            // Create ID based on timestamp.
+            user.Id = Convert.ToInt32(DateTime.UtcNow.Ticks);
+
+            PutItemResponse putItemResult = await _dynamoDBClient.PutItemAsync(new PutItemRequest()
+            {
+                TableName = "dotnetcore-react-redux-users",
+                Item = this.ConvertUserToDynamoDBItem(user)
+            });
+
+            return user;
+        }
+
+        /// <summary>
+        /// Updates a user's information with given data.
+        /// </summary>
+        /// <param name="userParam">Information to be updated. Must have all information including non-changed ones.</param>
+        /// <param name="password">To change password, set this parameter as non-null, non-whitespace only value.</param>
+        public async Task<User> Update(User userParam, string password = null)
+        {
+            // Fetch target user.
+            GetItemResponse dbResult = await _dynamoDBClient.GetItemAsync(new GetItemRequest()
+            {
+                TableName = "dotnetcore-react-redux-users",
+                Key = new Dictionary<string, AttributeValue>()
+                {
+                    ["id"] = { N = userParam.Id.ToString() }
+                }
+            });
+            if (dbResult.Item == null)
+            {
+                throw new ApplicationException("User not found.");
+            }
+            User user = this.ConvertDynamoDBItemToUser(dbResult.Item);
+
+            if (userParam.Username != user.Username)
+            {
+                // Check if username is already taken.
+                QueryResponse usernameCheckResult = await _dynamoDBClient.QueryAsync(new QueryRequest()
+                {
+                    TableName = "dotnetcore-react-redux-users",
+                    KeyConditionExpression = "username = :username",
+                    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+                    {
+                        [":username"] = new AttributeValue()
+                        {
+                            S = userParam.Username
+                        }
+                    }
+                });
+                if (usernameCheckResult.Items.Count > 0)
+                {
+                    throw new ApplicationException("Username '" + userParam.Username + "' is already taken.");
+                }
+            }
+
+            // Update user properties.
+            user.Email = userParam.Email;
+            user.FirstName = userParam.FirstName;
+            user.LastName = userParam.LastName;
+            user.Username = userParam.Username;
+
+            // Update password if given.
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                byte[] passwordHash;
+                CreatePasswordHash(password, out passwordHash);
+
+                user.PasswordHash = passwordHash;
+            }
+
+            PutItemResponse putItemResult = await _dynamoDBClient.PutItemAsync(new PutItemRequest()
+            {
+                TableName = "dotnetcore-react-redux-users",
+                Item = this.ConvertUserToDynamoDBItem(user)
+            });
+
+            return user;
+        }
+
+        /// <summary>
+        /// Deletes a user by id.
+        /// </summary>
+        /// <param name="id">Id of the user to be deleted.</param>
+        public async void Delete(int id)
+        {
+            await _dynamoDBClient.DeleteItemAsync(new DeleteItemRequest()
+            {
+                TableName = "dotnetcore-react-redux-users",
+                Key = new Dictionary<string, AttributeValue>()
+                {
+                    ["id"] = { N = id.ToString() }
+                }
+            });
+        }
+
+        /// <summary>
+        /// Creates password hash. Scheme: SHA512
+        /// </summary>
+        /// <param name="password">Password to create SHA512 hash.</param>
+        /// <param name="passwordHash">Byte array to store computed SHA512 hash.</param>
+        private static void CreatePasswordHash(string password, out byte[] passwordHash)
+        {
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Value cannot be empty or whitespace only.", "password");
+            }
+
+            HMACSHA512 hmac = new HMACSHA512(Encoding.UTF8.GetBytes(_config.GetValue<String>("Secrets:PasswordHash")));
+
+            passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+        }
+
+        /// <summary>
+        /// Verifies given password with stored hash. Hash secret would be fetched from secrets storage.
+        /// </summary>
+        /// <param name="password">Password to verify.</param>
+        /// <param name="storedHash">Stored password hash.</param>
+        /// <returns>True when successful, false otherwise.</returns>
+        private bool VerifyPasswordHash(string password, byte[] storedHash)
+        {
+            // Check if given password is null.
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+
+            // Check if given password is null or whitespace only.
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Value cannot be empty or null or whitespace only.");
+            }
+
+            // Check stored hash length.
+            if (storedHash.Length != 64)
+            {
+                throw new ArgumentException("Invalid length of password hash. Must be 64 characters.");
+            }
+
+            // Initializes HMAC sha-512 object with password hash secret.
+            HMACSHA512 hmac = new HMACSHA512(Encoding.UTF8.GetBytes(_config.GetValue<String>("Secrets:PasswordHash")));
+
+            // Compute hash of given password.
+            byte[] computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            // Compare each byte.
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != storedHash[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Converts AWS DynamoDB item to `User` object.
+        /// </summary>
+        /// <param name="item">DynamoDB item.</param>
+        /// <returns>Converted `User` object.</returns>
+        private User ConvertDynamoDBItemToUser(Dictionary<string, AttributeValue> item)
+        {
+            User user = new User()
+            {
+                Id = Convert.ToInt32(item["id"].N),
+                Email = item["email"].S,
+                FirstName = item["firstName"].S,
+                LastName = item["lastName"].S,
+                PasswordHash = item["passwordHash"].B.ToArray(),
+                Username = item["username"].S,
+            };
+
+            return user;
+        }
+
+        private Dictionary<string, AttributeValue> ConvertUserToDynamoDBItem(User user)
+        {
+            // NOTE: DynamoDB does not favor auto-increment Keys.
+            // Generally, random UUID(v4) or UUID with group(v5) is favored for scalablity and distributed r/w of data.
+            // So, here we use timestamp as key.
+            return new Dictionary<string, AttributeValue>()
+            {
+                ["id"] = { N = user.Id.ToString() },
+                ["email"] = { S = user.Email },
+                ["firstName"] = { S = user.FirstName },
+                ["lastName"] = { S = user.LastName },
+                ["passwordHash"] = { B = new System.IO.MemoryStream(user.PasswordHash) },
+                ["username"] = { S = user.Username }
+            };
+        }
+    }
+
+
 }

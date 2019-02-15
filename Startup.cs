@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.DynamoDBv2;
+using Amazon;
+using Amazon.Runtime;
+using Amazon.Runtime.CredentialManagement;
 
 namespace DotnetcoreReactRedux
 {
@@ -22,7 +27,29 @@ namespace DotnetcoreReactRedux
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add MVC service.
             services.AddMvc();
+
+            // Create AWS Profile options for basic profile.
+            var awsProfileOptions = new Amazon.Runtime.CredentialManagement.CredentialProfileOptions()
+            {
+                AccessKey = Configuration.GetValue<string>("Secrets:AWS:AccessKey"),
+                SecretKey = Configuration.GetValue<string>("Secrets:AWS:AccessKeySecret"),
+            };
+
+            // Creates basic profile with above options, then set AWS region.
+            var awsProfile = new Amazon.Runtime.CredentialManagement.CredentialProfile("basic-profile", awsProfileOptions);
+            awsProfile.Region = RegionEndpoint.APNortheast2;
+
+            // Registers AWS profile to AWS SDK's .NET SDK credentials file.
+            var sdkFile = new NetSDKCredentialsFile();
+            sdkFile.RegisterProfile(awsProfile);
+
+            // Add AWS options.
+            services.AddDefaultAWSOptions(new AWSOptions() { Region = RegionEndpoint.APNortheast2, Profile = awsProfile.Name });
+
+            // Add DynamoDB service.
+            services.AddAWSService<IAmazonDynamoDB>();
 
             // In production, the React files will be served from this directory
             // This code portion is not related to webpack_hmr.
