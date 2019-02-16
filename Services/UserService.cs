@@ -309,9 +309,10 @@ namespace DotnetcoreReactRedux.Services
         /// Default constructor.
         /// </summary>
         /// <param name="config">Application configuration to use.</param>
-        public DynamoDBUserService(IConfiguration config)
+        public DynamoDBUserService(IConfiguration config, IAmazonDynamoDB dynamoDBClient)
         {
             _config = config;
+            _dynamoDBClient = dynamoDBClient;
         }
 
         /// <summary>
@@ -332,10 +333,11 @@ namespace DotnetcoreReactRedux.Services
             QueryResponse dbResult = await _dynamoDBClient.QueryAsync(new QueryRequest()
             {
                 TableName = "dotnetcore-react-redux-users",
+                IndexName = "username-index",
                 KeyConditionExpression = "username = :username",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
                 {
-                    [":username"] = { S = username }
+                    [":username"] = new AttributeValue() { S = username }
                 }
             });
 
@@ -388,7 +390,7 @@ namespace DotnetcoreReactRedux.Services
                 TableName = "dotnetcore-react-redux-users",
                 Key = new Dictionary<string, AttributeValue>()
                 {
-                    ["id"] = { N = id.ToString() }
+                    ["id"] = new AttributeValue() { N = id.ToString() }
                 }
             });
 
@@ -418,6 +420,7 @@ namespace DotnetcoreReactRedux.Services
             QueryResponse dbResult = await _dynamoDBClient.QueryAsync(new QueryRequest()
             {
                 TableName = "dotnetcore-react-redux-users",
+                IndexName = "username-index",
                 KeyConditionExpression = "username = :username",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
                 {
@@ -425,7 +428,8 @@ namespace DotnetcoreReactRedux.Services
                     {
                         S = user.Username
                     }
-                }
+                },
+
             });
             if (dbResult.Items.Count > 0)
             {
@@ -438,7 +442,7 @@ namespace DotnetcoreReactRedux.Services
             user.PasswordHash = passwordHash;
 
             // Create ID based on timestamp.
-            user.Id = Convert.ToInt32(DateTime.UtcNow.Ticks);
+            user.Id = new Random().Next() + 1;
 
             PutItemResponse putItemResult = await _dynamoDBClient.PutItemAsync(new PutItemRequest()
             {
@@ -462,7 +466,7 @@ namespace DotnetcoreReactRedux.Services
                 TableName = "dotnetcore-react-redux-users",
                 Key = new Dictionary<string, AttributeValue>()
                 {
-                    ["id"] = { N = userParam.Id.ToString() }
+                    ["id"] = new AttributeValue() { N = userParam.Id.ToString() }
                 }
             });
             if (dbResult.Item == null)
@@ -477,6 +481,7 @@ namespace DotnetcoreReactRedux.Services
                 QueryResponse usernameCheckResult = await _dynamoDBClient.QueryAsync(new QueryRequest()
                 {
                     TableName = "dotnetcore-react-redux-users",
+                    IndexName = "username-index",
                     KeyConditionExpression = "username = :username",
                     ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
                     {
@@ -527,7 +532,7 @@ namespace DotnetcoreReactRedux.Services
                 TableName = "dotnetcore-react-redux-users",
                 Key = new Dictionary<string, AttributeValue>()
                 {
-                    ["id"] = { N = id.ToString() }
+                    ["id"] = new AttributeValue() { N = id.ToString() }
                 }
             });
         }
@@ -625,12 +630,12 @@ namespace DotnetcoreReactRedux.Services
             // So, here we use timestamp as key.
             return new Dictionary<string, AttributeValue>()
             {
-                ["id"] = { N = user.Id.ToString() },
-                ["email"] = { S = user.Email },
-                ["firstName"] = { S = user.FirstName },
-                ["lastName"] = { S = user.LastName },
-                ["passwordHash"] = { B = new System.IO.MemoryStream(user.PasswordHash) },
-                ["username"] = { S = user.Username }
+                ["id"] = new AttributeValue() { N = user.Id.ToString() },
+                ["email"] = new AttributeValue() { S = user.Email },
+                ["firstName"] = new AttributeValue() { S = user.FirstName },
+                ["lastName"] = new AttributeValue() { S = user.LastName },
+                ["passwordHash"] = new AttributeValue() { B = new System.IO.MemoryStream(user.PasswordHash) },
+                ["username"] = new AttributeValue() { S = user.Username }
             };
         }
     }

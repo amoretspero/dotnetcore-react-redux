@@ -7,11 +7,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel;
+using Microsoft.IdentityModel.Tokens;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.DynamoDBv2;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
+using DotnetcoreReactRedux.Services;
 
 namespace DotnetcoreReactRedux
 {
@@ -27,6 +32,9 @@ namespace DotnetcoreReactRedux
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Enable CORS.
+            services.AddCors();
+
             // Add MVC service.
             services.AddMvc();
 
@@ -50,6 +58,29 @@ namespace DotnetcoreReactRedux
 
             // Add DynamoDB service.
             services.AddAWSService<IAmazonDynamoDB>();
+
+            // Add UserServices.
+            // If want to use classic user service, use `UserService`.
+            services.AddScoped<IUserService, DynamoDBUserService>();
+
+            // Configure JWT authentication.
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false; // NOTE: This should be set to `true` on production.
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetValue<string>("Secrets:JWT"))),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             // In production, the React files will be served from this directory
             // This code portion is not related to webpack_hmr.
@@ -79,6 +110,16 @@ namespace DotnetcoreReactRedux
             }
 
             app.UseStaticFiles();
+
+            // Global CORS policy.
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
+            // Enable authentication.
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
