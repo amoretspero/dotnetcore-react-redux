@@ -13,6 +13,35 @@ This project is a sample web application project that uses...
 - All functions, classes, methods and others should be appropriately commented.  
 - For educational reason, no `var` keyword is allowed.  
   
+## Built with latest packages  
+One of this project's goal is to provide dotnetcore, react and redux based web application built with latest packages of now.
+To achieve that, all major packages this projects depend on will be updated to latest stable versions.  
+Current versions of core dependencies:
+- Server
+  - **AspNetCore**: v2.2.0
+  - AWSSDK: v3.3
+- Client:
+  - **aspnet-webpack**: v3.0.0
+  - **aspnet-webpack-react**: v4.0.0
+  - awesome-typescript-loader: v5.2.0
+  - **bootstrap**: v4.1.3
+  - css-loader: v2.1.1
+  - **office-ui-fabric-core**: v10.0.0
+  - **office-ui-fabric-react**: v6.167.1
+  - **react**: v16.8.6
+  - react-hot-loader: v4.8.4
+  - **react-redux**: v7.0.2
+  - react-router-dom: v5.0.0
+  - react-router-redux: v4.0.8
+  - **redux**: v4.0.0
+  - redux-thunk: v2.3.0
+  - source-map-loader: v0.2.4
+  - **typescript**: v3.4.3
+  - **webpack**: v4.30.0
+  - webpack-dev-middleware: v3.6.2
+  - webpack-hot-middleware: v2.24.3
+
+  
 ## License (MIT)  
 Copyright 2018 Jiung Hahm
 
