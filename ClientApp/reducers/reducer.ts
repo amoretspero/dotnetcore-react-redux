@@ -6,6 +6,9 @@ import { visibilityFilterReducer, booksReducer } from "./book";
 import { Article } from "../types/blog";
 import { articlesReducer } from "./blog";
 import { KnownBlogAction } from "../actions/blog";
+import { KnownUserAction } from "../actions/authentication";
+import { User } from "../types/user";
+import { authenticationReducer, registrationReducer } from "./authentication";
 
 /**
  * State for application.
@@ -21,6 +24,16 @@ export interface AppState {
         isFetching: boolean,
         items: Article[],
         selectedArticleId: number | undefined,
+    },
+    authentication: {
+        isLoggingIn: boolean,
+        isLoggedIn: boolean,
+        user: User | undefined,
+        fetchError: Error | undefined,
+    },
+    registration: {
+        isRegistering: boolean,
+        fetchError: Error | undefined,
     }
 }
 
@@ -37,7 +50,8 @@ export type AppThunkAction<TAction extends { type: string }> = {
  */
 export type KnownAppAction =
     KnownBookAction |
-    KnownBlogAction
+    KnownBlogAction |
+    KnownUserAction
 
 /**
  * Combined reducer of visibilityFilter and book reducers.
@@ -48,6 +62,8 @@ const reducer = combineReducers<AppState, KnownAppAction>({
     visibilityFilter: visibilityFilterReducer,
     books: booksReducer,
     articles: articlesReducer,
-})
+    authentication: authenticationReducer,
+    registration: registrationReducer,
+});
 
 export default reducer;

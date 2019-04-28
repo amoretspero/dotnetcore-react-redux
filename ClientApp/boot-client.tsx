@@ -8,7 +8,7 @@ import "./css/common.css";
 import "./css/main.css";
 import reducer from "./reducers/reducer";
 import { Provider } from "react-redux";
-import Routes from "./routes";
+import { Routes } from "./routes";
 import { initialState } from "./reducers/initialState";
 import thunk from "redux-thunk";
 

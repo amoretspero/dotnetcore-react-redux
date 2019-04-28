@@ -17,7 +17,7 @@ class BookListFilter extends React.Component<BookListFilterProps, {}> {
 
     render() {
         return (
-            <DefaultButton primary={this._filter === this.props.currentFilter} onClick={(e) => { this.props.onClick() }} className="p-3 mx-4">
+            <DefaultButton primary={this._filter === this.props.currentFilter} onClick={(e) => { e.preventDefault(); this.props.onClick() }} className="p-3 mx-4">
                 {this.props.text}
             </DefaultButton>
         )

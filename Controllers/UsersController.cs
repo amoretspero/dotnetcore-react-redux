@@ -49,7 +49,6 @@ namespace DotnetcoreReactRedux.Controllers
         {
             User user = await _userService.Authenticate(model.Username, model.Password);
 
-
             if (user == null)
             {
                 return BadRequest("Username or password is incorrect.");

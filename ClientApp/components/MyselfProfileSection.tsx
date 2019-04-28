@@ -88,7 +88,7 @@ export class MyselfProfileSection extends React.Component {
     ]
     render() {
         return (
-            <section className="myself-profile-section ms-Grid py-4 px-5">
+            <section className="myself-profile-section ms-Grid py-4 px-5" dir="ltr">
                 <div className="ms-Grid-row px-5">
                     {this._sampleContents.map((sc, idx) => {
                         return <ProfileSubSection key={idx} title={sc.title} contents={sc.contents} />

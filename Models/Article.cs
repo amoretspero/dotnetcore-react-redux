@@ -19,4 +19,15 @@ namespace DotnetcoreReactRedux.Models
 
         public string Content { get; set; }
     }
+
+    public class CreateArticleData
+    {
+        public string Title { get; set; }
+
+        public string Subtitle { get; set; }
+
+        public string Author { get; set; }
+
+        public string Content { get; set; }
+    }
 }
