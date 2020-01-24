@@ -19,14 +19,7 @@ export type BookListElementProps = {
     book: Book;
 }
 
-/**
- * BookListFilter component props type.
- */
-export type BookListFilterProps = {
-    /**
-     * onClick event to fire when clicked.
-     */
-    onClick: () => void,
+export type BookListFilterStateProps = {
     /**
      * Text to render inside button.
      */
@@ -40,6 +33,18 @@ export type BookListFilterProps = {
      */
     ownFilter: BookVisibilityFilter,
 }
+
+export type BookListFilterDispatchProps = {
+    /**
+     * onClick event to fire when clicked.
+     */
+    onClick: () => void,
+}
+
+/**
+ * BookListFilter component props type.
+ */
+export type BookListFilterProps = BookListFilterStateProps & BookListFilterDispatchProps & {}
 
 /**
  * BookListFilterContainer component props type.

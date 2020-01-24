@@ -6,7 +6,9 @@ import { connect } from "react-redux";
 /**
  * LoginBoxContainer component props type.
  */
-export type LoginBoxContainerProps = {};
+export type LoginBoxContainerProps = {
+    redirectTo: string,
+};
 
 /**
  * Maps current state to container component's props.
@@ -15,6 +17,7 @@ export type LoginBoxContainerProps = {};
  */
 function loginBoxMapStateToProps(state: AppState, ownProps: LoginBoxContainerProps): LoginBoxStateProps {
     return {
+        redirectTo: ownProps.redirectTo,
         fetchError: state.authentication.fetchError,
         isLoggingIn: state.authentication.isLoggedIn,
     };

@@ -34,7 +34,7 @@ export interface AppState {
     registration: {
         isRegistering: boolean,
         fetchError: Error | undefined,
-    }
+    },
 }
 
 /**

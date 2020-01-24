@@ -1,6 +1,6 @@
 import * as React from "react";
-import { BookListFilterProps, BookListFilterContainerProps } from "../../types/book";
-import { DefaultButton, BaseButton, Button } from "office-ui-fabric-react";
+import { BookListFilterProps, BookListFilterContainerProps, BookListFilterStateProps, BookListFilterDispatchProps } from "../../types/book";
+import { DefaultButton } from "office-ui-fabric-react";
 import { connect } from "react-redux";
 import { bookActionCreators } from "../../actions/book";
 import { BookVisibilityFilter } from "../../helpers/enums/BookVisibilityFilters";
@@ -17,7 +17,13 @@ class BookListFilter extends React.Component<BookListFilterProps, {}> {
 
     render() {
         return (
-            <DefaultButton primary={this._filter === this.props.currentFilter} onClick={(e) => { e.preventDefault(); this.props.onClick() }} className="p-3 mx-4">
+            <DefaultButton
+                primary={this._filter === this.props.currentFilter}
+                onClick={(e) => {
+                    e.preventDefault();
+                    this.props.onClick();
+                }}
+                className="p-3 mx-4">
                 {this.props.text}
             </DefaultButton>
         )
@@ -29,9 +35,8 @@ class BookListFilter extends React.Component<BookListFilterProps, {}> {
  * @param state State to map to props of container component.
  * @param ownProps Props provided when using this component.
  */
-function bookListFilterMapStateToProps(state: AppState, ownProps: BookListFilterContainerProps): BookListFilterProps {
+function bookListFilterMapStateToProps(state: AppState, ownProps: BookListFilterContainerProps): BookListFilterStateProps {
     return {
-        onClick: () => { },
         text: ownProps.text,
         currentFilter: state.visibilityFilter,
         ownFilter: ownProps.filter,
@@ -43,7 +48,7 @@ function bookListFilterMapStateToProps(state: AppState, ownProps: BookListFilter
  * @param dispatch Dispatch to map to props of container component.
  * @param ownProps Props provided when using this component.
  */
-function bookListFilterMapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: BookListFilterContainerProps) {
+function bookListFilterMapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: BookListFilterContainerProps): BookListFilterDispatchProps {
     return {
         onClick: () => {
             dispatch(bookActionCreators.setVisibilityFilterActionCreator(ownProps.filter))

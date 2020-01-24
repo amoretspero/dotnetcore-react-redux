@@ -5,30 +5,27 @@ import { authenticationActionCreators } from "../actions/authentication";
 
 import "../css/login.css";
 import { LoginPageMainSection } from "./LoginPageMainSection";
+import { RouteComponentProps } from "react-router";
 
 // export type LoginPageStateProps = {
 //     isLoggingIn: boolean,
 //     fetchError: Error | undefined,
 // }
 
-// export type LoginPageDispatchProps = {
-//     dispatch: ThunkDispatch<AppState, {}, KnownAppAction>,
-// }
+export interface LoginPageStateProps extends RouteComponentProps { };
 
-// export type LoginPageProps = LoginPageStateProps & LoginPageDispatchProps;
+export type LoginPageDispatchProps = {};
 
-// export type LoginPageState = {
-//     usernameInput: string,
-//     passwordInput: string,
-//     isSubmitted: boolean,
-// };
+export type LoginPageProps = LoginPageStateProps & LoginPageDispatchProps;
+
+export type LoginPageState = {};
 
 // export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
-export class LoginPage extends React.Component<{}, {}> {
+export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
     render() {
         return (
             <div>
-                <LoginPageMainSection />
+                <LoginPageMainSection redirectTo={this.props.location.state.from || "/"} />
             </div>
         )
     }

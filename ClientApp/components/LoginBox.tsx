@@ -5,6 +5,7 @@ import { authenticationActionCreators } from "../actions/authentication";
 import { TextField, Button, PrimaryButton } from "office-ui-fabric-react";
 
 export type LoginBoxStateProps = {
+    redirectTo: string,
     isLoggingIn: boolean,
     fetchError: Error | undefined,
 }
@@ -70,7 +71,7 @@ export class LoginBox extends React.Component<LoginBoxProps, LoginBoxState> {
         const { usernameInput, passwordInput } = this.state;
         console.log(this.state);
         if (usernameInput && passwordInput) {
-            this.props.dispatch(authenticationActionCreators.loginThunkActionCreator(usernameInput, passwordInput));
+            this.props.dispatch(authenticationActionCreators.loginThunkActionCreator(usernameInput, passwordInput, this.props.redirectTo));
         }
     }
 
@@ -86,6 +87,9 @@ export class LoginBox extends React.Component<LoginBoxProps, LoginBoxState> {
             }}>
                 <p>
                     Log in to this web site.
+                </p>
+                <p>
+                    Only administrators can log in.
                 </p>
                 {this.props.fetchError &&
                     <p style={{ color: "red" }}>

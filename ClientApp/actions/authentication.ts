@@ -113,7 +113,7 @@ function userConverter(user: any) {
     return user;
 }
 
-function loginThunkActionCreator(username: string, password: string): ThunkAction<Promise<void>, AppState, {}, KnownAppAction> {
+function loginThunkActionCreator(username: string, password: string, redirectTo: string): ThunkAction<Promise<void>, AppState, {}, KnownAppAction> {
     return function (dispatch: ThunkDispatch<AppState, {}, KnownAppAction>, getState: () => AppState) {
         dispatch(requestLoginActionCreator(username, password)); // TODO: Should username and password be provided?
         return fetch(`users/authenticate`, {
@@ -142,7 +142,7 @@ function loginThunkActionCreator(username: string, password: string): ThunkActio
                         // Sets local storage with user information.
                         localStorage.setItem("user", JSON.stringify(jsonResult));
                         dispatch(requestLoginSuccessActionCreator(jsonResult));
-                        browserHistory.push("/");
+                        browserHistory.push(redirectTo);
                     }, (err) => {
                         // Dispatches login failure action.
                         dispatch(requestLoginFailureActionCreator(err)); // TODO: Can this error be used directly?

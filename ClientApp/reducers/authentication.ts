@@ -35,6 +35,16 @@ export function authenticationReducer(state = { isLoggingIn: false, isLoggedIn: 
                 user: action.user,
                 fetchError: undefined,
             };
+        case "LOGOUT":
+            // Removes user information from local storage.
+            localStorage.removeItem("user");
+
+            return {
+                isLoggingIn: false,
+                isLoggedIn: false, // Now logged out.
+                user: undefined,
+                fetchError: undefined,
+            };
         default:
             return state;
     }
