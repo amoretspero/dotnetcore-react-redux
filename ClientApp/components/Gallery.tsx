@@ -1,14 +1,19 @@
 import * as React from "react";
+import { Modal } from "office-ui-fabric-react";
 
 type GalleryElementProps = {
     url: string;
+    key: number;
 };
 
-type GalleryElementState = {};
+type GalleryElementState = {
+    showModal: boolean;
+};
 
 export class GalleryElement extends React.Component<GalleryElementProps, GalleryElementState> {
     constructor(props: GalleryElementProps) {
         super(props);
+        this.state = { showModal: false };
     }
 
     render() {
@@ -20,9 +25,38 @@ export class GalleryElement extends React.Component<GalleryElementProps, Gallery
 
         return (
             <div style={style}>
-                <img src={this.props.url} className="p-2" style={{ width: "100%" }}></img>
+                <img
+                    id={`gallery-image-${this.props.key}`}
+                    src={this.props.url}
+                    className="p-2"
+                    style={{ width: "100%" }}
+                    onClick={this.showModal} />
+                <Modal
+                    titleAriaId={`gallery-image-${this.props.key}-title`}
+                    subtitleAriaId={`gallery-image-${this.props.key}-subtitle`}
+                    isOpen={this.state.showModal}
+                    onDismiss={this.closeModal}
+                    isBlocking={false}
+                    className="px-4"
+                >
+                    <div className="gallery-image-modal px-5" style={{ height: "80vh" }}>
+                        <h2 style={{ height: "2.5rem" }}>Image title</h2>
+                        <p style={{ height: "1.5rem" }}><span style={{ fontWeight: "bold" }}>Author: </span>The author</p>
+                        <div className="gallery-image-model-big-image" style={{ height: "calc(80vh - 5.5rem)" }}>
+                            <img src={this.props.url} className="p-2" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                        </div>
+                    </div>
+                </Modal>
             </div>
         )
+    }
+
+    private showModal = () => {
+        this.setState({ showModal: true });
+    }
+
+    private closeModal = () => {
+        this.setState({ showModal: false });
     }
 }
 
