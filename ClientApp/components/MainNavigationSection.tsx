@@ -11,8 +11,7 @@ class MainNavigationSection extends React.Component {
                             Sample title
                         </h2>
                         <p className="section-navigation-desc ms-sm12">
-                            Some brief description about content.
-                            This is second line of description.
+                            {this.getDescriptionPlaceholder()}
                         </p>
                         <DefaultButton
                             href="/myself"
@@ -25,8 +24,7 @@ class MainNavigationSection extends React.Component {
                             Sample title
                         </h2>
                         <p className="section-navigation-desc ms-sm12">
-                            Some brief description about content.
-                            This is second line of description.
+                            {this.getDescriptionPlaceholder()}
                         </p>
                         <DefaultButton
                             href="/books"
@@ -39,8 +37,7 @@ class MainNavigationSection extends React.Component {
                             Sample title
                         </h2>
                         <p className="section-navigation-desc ms-sm12">
-                            Some brief description about content.
-                            This is second line of description.
+                            {this.getDescriptionPlaceholder()}
                         </p>
                         <DefaultButton
                             href="/blog"
@@ -53,8 +50,7 @@ class MainNavigationSection extends React.Component {
                             Sample title
                         </h2>
                         <p className="section-navigation-desc ms-sm12">
-                            Some brief description about content.
-                            This is second line of description.
+                            {this.getDescriptionPlaceholder()}
                         </p>
                         <DefaultButton
                             href="/gallery"
@@ -65,6 +61,13 @@ class MainNavigationSection extends React.Component {
                 </div>
             </section >
         )
+    }
+
+    private getDescriptionPlaceholder() {
+        return `
+Some brief description about content.
+This is second line of description.
+        `.trim();
     }
 }
 
